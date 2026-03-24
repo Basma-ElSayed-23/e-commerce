@@ -2,6 +2,13 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+
+.swiper-pagination-bullet-active{
+background: #fff !important;
+width: 32px !important;
+height: 12px !important;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -126,4 +133,8 @@
   html {
     @apply font-sans;
   }
+}
+
+body{
+  height: 5000px;
 }
