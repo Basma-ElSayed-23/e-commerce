@@ -37,3 +37,24 @@ export async function getAllCategories() : Promise<CategoryType[] | undefined>{
     return undefined
     }
 }
+
+
+////////
+
+export async function getProductsByCategory(categoryId: string) {
+  const res = await fetch(
+    `https://ecommerce.routemisr.com/api/v1/products?category[in]=${categoryId}`
+  );
+
+  const data = await res.json();
+  return data.data;
+}
+
+export async function getSingleCategory(categoryId: string) {
+  const res = await fetch(
+    `https://ecommerce.routemisr.com/api/v1/categories/${categoryId}`
+  );
+
+  const data = await res.json();
+  return data.data;
+}
