@@ -5,7 +5,9 @@ import {CategoryType, ProductType } from "../types/product.type";
 
 export async function getAllProducts() : Promise<ProductType[] | undefined>{
     try{
-    const res = await fetch(`https://ecommerce.routemisr.com/api/v1/products`);
+    const res = await fetch(`https://ecommerce.routemisr.com/api/v1/products` , {
+      cache: "force-cache"
+    });
     const data = await res.json();
     // console.log("data", data.data);
     return data.data;

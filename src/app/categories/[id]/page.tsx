@@ -4,14 +4,18 @@ import Link from 'next/link';
 export default async function CategoryDetails({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
+  // const category = await getSingleCategory(id);
+  // const products = await getProductsByCategory(id);
+
   const category = await getSingleCategory(id);
-  const products = await getProductsByCategory(id);
+  const response = await getProductsByCategory(id);
+  const products = response?.data ?? [];
 
   return (
     <div className="w-[90%] mx-auto my-8">
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-500 to-emerald-400 text-white p-8 rounded-xl mb-6 flex items-center gap-4">
+      <div className="bg-linear-to-r from-green-500 to-emerald-400 text-white p-8 rounded-xl mb-6 flex items-center gap-4">
         <img src={category.image} className="w-16 h-16 bg-white p-2 rounded" />
         <div>
           <h1 className="text-2xl font-bold">{category.name}</h1>

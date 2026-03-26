@@ -63,7 +63,7 @@ export default function NavigationMenuDemo() {
   <div>
    <FirstNav/>
   
-    <NavigationMenu className="max-w-full md:px-20 bg-red-400 sticky top-0">
+    <NavigationMenu className="max-w-full md:px-20 bg-emerald-200 sticky top-0 z-50">
       <NavigationMenuList className="flex justify-between">
         <div className="flex">
           <TiShoppingCart className="color/green/36 mt-1" />
@@ -157,3 +157,115 @@ function ListItem({
   )
 }
 
+
+
+
+// "use client";
+
+// import Link from "next/link";
+// import { Search, Headphones } from "lucide-react";
+// import { FaRegHeart } from "react-icons/fa";
+// import { TiShoppingCart } from "react-icons/ti";
+// import { IoCartOutline } from "react-icons/io5";
+// import { RiUserLine } from "react-icons/ri";
+// import FirstNav from "../FirstNav/FirstNav";
+
+// import {
+//   NavigationMenu,
+//   NavigationMenuContent,
+//   NavigationMenuItem,
+//   NavigationMenuList,
+//   NavigationMenuTrigger,
+// } from "@/components/ui/navigation-menu";
+
+// export default function MainNavbar() {
+//   return (
+//     <>
+//       <FirstNav />
+
+//       {/* Main Navbar - Full Width زي الموقع بالظبط */}
+//       <nav className="bg-white border-b sticky top-0 z-50 shadow-sm">
+//         <div className="w-full">   {/* ← مهم: w-full بدل max-w */}
+//           <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-3 md:py-4">
+//             <div className="flex items-center justify-between gap-8">
+
+//               {/* Logo */}
+//               <div className="flex items-center gap-3 shrink-0">
+//                 <TiShoppingCart className="text-4xl text-green-600" />
+//                 <Link href="/" className="text-2xl font-bold text-green-700 tracking-tight">
+//                   FreshCart
+//                 </Link>
+//               </div>
+
+//               {/* Search Bar - عريض جدًا */}
+//               <div className="flex-1 max-w-3xl mx-4">   {/* ← max-w-3xl عشان يبقى عريض */}
+//                 <div className="relative">
+//                   <input
+//                     type="text"
+//                     placeholder="Search for products, brands and more..."
+//                     className="w-full bg-green-50 border border-green-200 focus:border-green-500 focus:bg-white h-12 pl-6 pr-16 rounded-full text-sm outline-none transition-all"
+//                   />
+//                   <button className="absolute right-3 top-1/2 -translate-y-1/2 bg-green-600 hover:bg-green-700 text-white p-3 rounded-full transition-all">
+//                     <Search className="w-5 h-5" />
+//                   </button>
+//                 </div>
+//               </div>
+
+//               {/* Right Side */}
+//               <div className="flex items-center gap-6 lg:gap-8 text-sm font-medium text-gray-700 flex-shrink-0">
+                
+//                 <Link href="/" className="hover:text-green-600 transition-colors hidden md:block">Home</Link>
+//                 <Link href="/shop" className="hover:text-green-600 transition-colors hidden md:block">Shop</Link>
+
+//                 <NavigationMenu>
+//                   <NavigationMenuList>
+//                     <NavigationMenuItem>
+//                       <NavigationMenuTrigger className="hover:text-green-600 bg-transparent hover:bg-transparent px-0 py-0 data-[state=open]:bg-transparent">
+//                         Categories 
+//                       </NavigationMenuTrigger>
+//                       <NavigationMenuContent>
+//                         <ul className="grid w-56 gap-2 p-4">
+//                           <li><Link href="/categories" className="block px-3 py-2 hover:bg-green-50 rounded-md">All Categories</Link></li>
+//                           <li><Link href="/categories/electronics" className="block px-3 py-2 hover:bg-green-50 rounded-md">Electronics</Link></li>
+//                           <li><Link href="/categories/womens-fashion" className="block px-3 py-2 hover:bg-green-50 rounded-md">Women's Fashion</Link></li>
+//                           <li><Link href="/categories/mens-fashion" className="block px-3 py-2 hover:bg-green-50 rounded-md">Men's Fashion</Link></li>
+//                           <li><Link href="/categories/beauty-health" className="block px-3 py-2 hover:bg-green-50 rounded-md">Beauty & Health</Link></li>
+//                         </ul>
+//                       </NavigationMenuContent>
+//                     </NavigationMenuItem>
+//                   </NavigationMenuList>
+//                 </NavigationMenu>
+
+//                 <Link href="/brands" className="hover:text-green-600 transition-colors hidden md:block">Brands</Link>
+
+//                 <Link href="/support" className="flex items-center gap-1.5 hover:text-green-600 transition-colors hidden lg:flex">
+//                   <Headphones className="w-5 h-5" />
+//                   <span className="text-xs leading-tight">24/7 Help</span>
+//                 </Link>
+
+//                 <Link href="/wishlist" className="text-2xl hover:text-green-600 transition-colors">
+//                   <FaRegHeart />
+//                 </Link>
+
+//                 <Link href="/cart" className="relative text-3xl hover:text-green-600 transition-colors">
+//                   <IoCartOutline />
+//                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
+//                     1
+//                   </span>
+//                 </Link>
+
+//                 <Link
+//                   href="/signin"
+//                   className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold transition-all"
+//                 >
+//                   <RiUserLine className="text-lg" />
+//                   Sign In
+//                 </Link>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </nav>
+//     </>
+//   );
+// }
