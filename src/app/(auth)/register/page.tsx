@@ -7,6 +7,12 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 // import { email } from 'zod';
+import { useEffect } from 'react';
+import Image from 'next/image';
+import sarahImg from '@/assets/images/sarah.png'
+import { FaStar, FaTruck, FaShieldAlt } from "react-icons/fa";
+
+
 
 //https://ecommerce.routemisr.com/api/v1/auth/signup  
 
@@ -64,12 +70,12 @@ const formik = useFormik({
         email: "",
         password: "",
         rePassword: "",
-        Phone: "",
+        phone: "",
         terms: false,
     },
 
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, {resetForm}) => {
         setLoading(true);
         setApiError(null);
         try {
@@ -81,11 +87,12 @@ const formik = useFormik({
             email: values.email,
             password: values.password,
             rePassword: values.rePassword,
-            Phone: values.Phone,
+            phone: values.phone,
         }),
        });
        const data = await res.json();
        if (data.message === "success") {
+        resetForm();
         router.push("/login");
        } else {
         setApiError(data.message || "Something went wrong. Please try again.");
@@ -97,6 +104,15 @@ const formik = useFormik({
         }
     },
 });
+
+useEffect(() => {
+    formik.resetForm();
+}, []);
+
+
+// useEffect(() => {
+//   formik.resetForm();
+// }, []);
 
 const strength = getPasswordStrength(formik.values.password);
 
@@ -148,43 +164,40 @@ const Field = ({
 return (
     <div className='min-h-screen bg-gray-50 flex flex-col'>
         {/**main content */}
-        <main className='flex flex-1 justify-center items-center px-4 py-12'>
-            <div className='max-w-6xl mx-auto w-full'>
-                <div className='border border-gray-100 overflow-hidden bg-white rounded-2xl shadow-sm'>
-                    <div className='flex flex-col lg:flex-row'>
+        <main className="flex-1 flex items-center justify-center px-4 py-8 lg:py-12">
+    <div className="max-w-7xl mx-auto w-full">
+        <div className="border border-gray-100 overflow-hidden bg-white rounded-3xl shadow-sm">
+            {/* Responsive Container */}
+            <div className="flex flex-col lg:flex-row min-h-[640px]">
                         {/**left content */}
-                        <div className='lg:w-5/12 bg-linear-to-br from-green-50 to-emerald-50 p-8 lg:p-12 flex flex-col justify-center'>
+                        <div className='lg:w-5/12 bg-gradient-to-br from-green-50 to-emerald-50 p-8 lg:p-12 flex flex-col'>
                         <div className='mb-8'>
-                            <h1 className='text-4xl lg:text-4xl font-bold text-[#364153] mb-3'>
-                                Welcome to {" "}
-                                <span className='text-[#16A34A]'>FreshCart</span>
+                            <h1 className='text-4xl md:text-4xl lg:text-5xl font-bold text-[#364153] leading-tight mb-3'>
+                                Welcome to <span className='text-[#16A34A]'>FreshCart</span>
                             </h1>
-                            <p className='text-[#364153] font-medium text-xl leading-relaxed'>
+                            <p className='text-[#364153] font-medium text-lg md:text-xl leading-relaxed'>
                             Join thousands of happy customers who enjoy fresh groceries
                             delivered right to their doorstep.
                             </p>
                             </div>
                             {/**features*/}
-                            <ul className='mb-10 space-y-6'>
+                            <ul className='mb-10 space-y-5'>
                                 {[
                                     {
-                                        icon: "⭐",
+                                        icon: <FaStar className='w-5 h-5 text-[#16A34A] '/>,
                                         bg: "bg-[#BBF7D0]",
-                                        text: "text-[#16A34A]",
                                         title: "Premium Quality",
                                         desc: "Premium quality products sourced from trusted suppliers."
                                     },
                                     {
-                                        icon: "🚚",
+                                        icon: <FaTruck className='w-5 h-5 text-[#16A34A]'/>,
                                         bg: "bg-[#BBF7D0]",
-                                        text: "text-[#16A34A]",
                                         title: "Fast Delivery",
                                         desc: "Same-day delivery available in most areas."
                                     },
                                     {
-                                        icon: "🛡️",
+                                        icon: <FaShieldAlt className='w-5 h-5 text-[#16A34A]'/>,
                                         bg: "bg-[#BBF7D0]",
-                                        text: "text-[#16A34A]",
                                         title: "Secure Shopping",
                                         desc: "Your data and payments are completely secure"
                                     },
@@ -203,14 +216,22 @@ return (
                             {/**testimonial */}
                             <div className='bg-white rounded-xl p-5 shadow-sm border border-gray-100'>
                                 <div className='flex items-center gap-3 mb-3'>
-                                    <div className='w-10 h-10 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white font-bold text-sm shrink-0'>
-                                        SJ
+                                    <div className='w-12 h-12 rounded-full  overflow-hidden border border-white  shadow-sm shrink-0'
+                                    style={{
+                                        width: '48px',
+                                        height: '48px',
+                                        borderRadius: '9999px',
+                                        opacity: 1,
+                                    }}
+                                    >
+                                        <Image src={sarahImg} alt="Sarah Johnson" width={48} height={48} className='w-full h-full object-cover'/>
+                                        {/* <img src="src/assets/images/sarah.png" alt="Sarah Johnson" className='w-full h-full object-cover' /> */}
                                     </div>
                                     <div>
                                         <p className='font-semibold text-[#364153] text-sm'>Sarah Johnson</p>
                                         <div className='flex gap-0.5 mt-0.5'>
                                             {[...Array(5)].map((_, i) => (
-                                                <svg className='text-[#FFDF20]' width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg key={i} className='text-[#FFDF20]' width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                <path d="M9.26802 0.409375C9.1399 0.159375 8.88052 0 8.59927 0C8.31802 0 8.05865 0.159375 7.93052 0.409375L5.63052 4.91563L0.633649 5.70937C0.355524 5.75312 0.124274 5.95 0.0367741 6.21875C-0.0507259 6.4875 0.0211491 6.78125 0.218024 6.98125L3.79302 10.5594L3.00552 15.5562C2.96177 15.8344 3.0774 16.1156 3.30552 16.2812C3.53365 16.4469 3.83365 16.4719 4.08677 16.3438L8.59927 14.05L13.1086 16.3438C13.3586 16.4719 13.6618 16.4469 13.8899 16.2812C14.118 16.1156 14.2336 15.8375 14.1899 15.5562L13.3993 10.5594L16.9743 6.98125C17.1743 6.78125 17.243 6.4875 17.1555 6.21875C17.068 5.95 16.8399 5.75312 16.5586 5.70937L11.5649 4.91563L9.26802 0.409375Z" fill="#FFDF20"/>
                                                </svg>
 //                                                <svg key={i} className="w-3 h-3 text-[#FFDF20] fill-current" viewBox="0 0 20 20">
@@ -227,12 +248,12 @@ return (
                             </div>
                             </div>
                             {/** right content*/}
-                            <div className='lg:w-7/12 p-8 lg:p-12'>
-                            <div className='max-w-md mx-auto'>
-                                <h2 className='text-[30px] font-semibold text-[#364153] text-center tracking-normal leading-9 mb-1'>
+                            <div className='lg:w-7/12 p-6 md:p-10 lg:p-12 flex items-center'>
+                            <div className='max-w-md mx-auto w-full'>
+                                <h2 className='text-2xl md:text-[30px] font-semibold text-[#364153] text-center tracking-normal leading-9 mb-2'>
                                     Create Your Account 
                                 </h2>
-                                <p className='text-[#364153] font-medium text-base leading-6 tracking-normal text-center mb-5'>Start your fresh journey with us today</p>
+                                <p className='text-[#364153] font-medium text-base leading-6 tracking-normal text-center mb-8'>Start your fresh journey with us today</p>
                                 {/** social btns*/}
                                 <div className='grid grid-cols-2 gap-3 mb-6'>
                                     <button type='button' 
@@ -260,25 +281,55 @@ return (
                                     </button>
                                 </div>
                                  {/** Divider*/}
-                                 <div className='relative mb-6'> 
+                                 <div className='relative my-8'> 
                                     <div className='absolute inset-0 flex items-center'>
-                                        <div className='w-full border-t border-gray-200'>
-
+                                        <div className='w-[552px] h-[2px] border-t border-[#D1D5DC4D]'></div>
                                         </div>
                                         <div className='relative flex justify-center text-xs'>
-                                            <span className=' font-main px-3 font-medium leading-6 text-base tracking-normal bg-white text-[#364153]'>or</span>
-                                        </div>
+                                            <span className=' font-main px-3 font-medium leading-6 text-base tracking-normal text-[#364153] bg-white'>or</span>
                                     </div>
+                                    </div>
+                                   
                                      {/** Apis Error*/}
                                      {apiError && (
                                         <div className='mb-5 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2'>
                                             <span className='text-red-500 text-sm'>⚠️</span>
                                             <p className='text-red-600 text-sm'>{apiError}</p>
                                         </div>
+                                        
                                      )} 
-                                     <form onSubmit={formik.handleSubmit} className='space-y-4' noValidate>
-                                        <Field id='name' label='Name' placeholder='Ali'/>
-                                         <Field id='email' label='Email' type='email' placeholder='ali@example.com'/>
+                                     <form onSubmit={formik.handleSubmit} className='space-y-4' noValidate autoComplete='off'>
+                                        <div>
+                                            <label htmlFor="name" className='block text-sm font-medium text-[#364153] mb-2'>
+                                                Name <span>*</span>
+                                            </label>
+                                            <input type="name"
+                                            {...formik.getFieldProps("name")} placeholder='"Ali' autoComplete='off' 
+                                            className={`w-full px-4 py-3 rounded-lg border text-sm
+                                            ${formik.touched.name && formik.errors.name ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50 focus:border-gray-500"}`}
+                                             />
+                                             {formik.touched.name && formik.errors.name && (
+                                                <p className='text-red-500 text-xs mt-1'>{formik.errors.name}</p>
+                                             )}
+                                        </div>
+                                        {/* <Field id='name' label='Name' placeholder='Ali' autoComplete='off'/> */}
+                                        <div>
+                                            <label htmlFor="email" className='block text-sm font-medium text-[#364153] mb-2'>
+                                                Email <span>*</span>
+                                            </label>
+                                            <input id='email' type="email"
+                                            {...formik.getFieldProps("email")} placeholder='ali@example.com' autoComplete='off' 
+                                            className={`w-full px-4 py-3 rounded-lg border text-sm transition-all 
+                                            ${formik.touched.email && formik.errors.email 
+                                                ? "border-red-400 bg-red-50" 
+                                                : "border-gray-200 bg-gray-50 focus:border-[#16A34A] focus:ring-green-100 focus:bg-white"}`}
+                                             />
+                                             {formik.touched.email && formik.errors.email && (
+                                                <p className='text-red-500 text-xs mt-1'>{formik.errors.email}</p>
+                                             )}
+                                        </div>
+                                         {/* <Field id='email' label='Email' type='email' placeholder='ali@example.com'/> */}
+
                                          {/** password*/}
                                          <div>
                                             <label htmlFor="password" className='block text-sm font-medium text-[#364153] mb-1'>
@@ -287,7 +338,8 @@ return (
                                             <div className='relative'>
                                                 <input id="password"
                                                 {...formik.getFieldProps("password")}
-                                                type={showPassword ? "text" : "password"} placeholder='create a strong password'
+                                                type={showPassword ? "text" : "password"} placeholder='create a strong password' 
+                                                autoComplete='off'
                                                 className={`w-full px-4 py-3 pr-10 rounded-lg border text-sm transition-all outline-none
                                                     ${formik.touched.password && formik.errors.password
                                                 ? "border-red-400 bg-red-50"
@@ -324,7 +376,7 @@ return (
                                                 <p className='text-xs text-red-500 mt-1 leading-4 font-medium'>
                                                     {formik.errors.password}</p>
                                              ) : (
-                                                 <p className='leading-4 font-medium text-[#6A7282] mt-1'>
+                                                 <p className='leading-4 font-medium text-[#6A7282] mt-1 '>
                                                     Must be at least 8 characters with numbers and symbols
                                                 </p>
                                              )}
@@ -332,143 +384,121 @@ return (
                                              )}
                                               
                                          {/*confirm password */}
+                                         <div>
+                                            <label htmlFor="rePassword" className='block text-sm font-medium text-[#364153] mb-1 mt-5'>
+                                                Confirm Password*
+                                            </label>
+                                            <div className='relative'>
+                                                <input id="rePassword" 
+                                                {...formik.getFieldProps("rePassword")}
+                                                type = {showConfirm ? "text" : "password"}
+                                                placeholder='confirm your password'
+                                                className={`w-full px-4 py-3 pr-10 rounded-lg border text-sm transition-all outline-none
+                                                    ${formik.touched.rePassword && formik.errors.rePassword
+                                                        ? "border-red-400 bg-red-50"
+                                                        : "border-gray-200 bg-gray-50 focus::ring-2 focus:ring-green-100 focus:bg-white"
+                                                    }`}
+                                                />
+                                                <button type='button'
+                                                onClick={() => setShowConfirm(!showConfirm)}
+                                                className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600'>
+                                                    {showConfirm ? (
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                                                     </svg>
+                                                    ) : (
+                                                    
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                             </svg>
+                                                    )}
+                                                </button>
+                                            </div>
+                                            {formik.touched.rePassword && formik.errors.rePassword && (
+                                                <p className='text-red-500 mt-1 text-xs'>{formik.errors.rePassword}</p>
+                                            )}
+                                         </div>
+                                         <div className='mt-3 mb-3'>
+                                            {/* <Field id='phone' label='Phone Number' type='tel' placeholder='+1 234 567 8900'/> */}
+                                            <div>
+                                            <label htmlFor="phone" className='block text-sm font-medium text-[#364153] mb-2'>
+                                                Phone Number <span>*</span>
+                                            </label>
+                                            <input id='phone' type="tel"
+                                            {...formik.getFieldProps("phone")} autoComplete='off' 
+                                            className={`w-full px-4 py-3 rounded-lg border text-sm transition-all 
+                                            ${formik.touched.phone && formik.errors.phone 
+                                                ? "border-red-400 bg-red-50" 
+                                                : "border-gray-200 bg-gray-50 focus:border-[#16A34A] focus:ring-2 focus:ring-green-100 focus:bg-white"}`}
+                                             />
+                                             {formik.touched.phone && formik.errors.phone && (
+                                                <p className='text-red-500 text-xs mt-1'>{formik.errors.phone}</p>
+                                             )}
+                                        </div>
 
                                          </div>
+                                         
+                                         <div>
+                                            <label className='flex items-start cursor-pointer gap-3 group'>
+                                                <input id='terms' type="checkbox" 
+                                                {...formik.getFieldProps("terms")}
+                                                checked={formik.values.terms}
+                                                className='cursor-pointer shrink-0 accent-green-600 w-4 h-4 mt-1'/>
+                                                <span className='font-medium text-[#364153]'>I agree to the{" "}
+                                                <Link href="/terms" className='text-[#16A34A]  font-medium tracking-normal align-middle leading-normal text-base'>
+                                                Privacy Policy</Link> {" "}
+                                                <span>*</span>
+                                                </span>
+                                            </label>
+                                            {formik.touched.terms && formik.errors.terms && (
+                                                <p className='text-xs text-red-500 mt-1'>{formik.errors.terms}</p>
+                                            )}
+                                         </div> 
+                                         {/* btn submit */}
+                                         <button disabled= {loading} type="submit" 
+                                         className='w-full flex items-center justify-center gap-2 py-3.5 px-6 bg-[#16A34A] disabled:bg-green-400 text-white font-semibold rounded-xl transition-all duration-200 text-sm shadow-sm hover:shadow-md disabled:cursor-not-allowed'
+                                         > {loading ? (
+                                            <>
+                                            <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                      </svg>
+                                      Creating Account...
+                                            </>
+                                         ):(
+                                            <>
+                                            <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.25 4C4.25 3.00544 4.64509 2.05161 5.34835 1.34835C6.05161 0.645088 7.00544 0.25 8 0.25C8.99456 0.25 9.94839 0.645088 10.6517 1.34835C11.3549 2.05161 11.75 3.00544 11.75 4C11.75 4.99456 11.3549 5.94839 10.6517 6.65165C9.94839 7.35491 8.99456 7.75 8 7.75C7.00544 7.75 6.05161 7.35491 5.34835 6.65165C4.64509 5.94839 4.25 4.99456 4.25 4ZM1.5 15.0719C1.5 11.9937 3.99375 9.5 7.07188 9.5H8.92813C12.0063 9.5 14.5 11.9937 14.5 15.0719C14.5 15.5844 14.0844 16 13.5719 16H2.42812C1.91562 16 1.5 15.5844 1.5 15.0719ZM17 3C17.4156 3 17.75 3.33437 17.75 3.75V5.25H19.25C19.6656 5.25 20 5.58437 20 6C20 6.41563 19.6656 6.75 19.25 6.75H17.75V8.25C17.75 8.66562 17.4156 9 17 9C16.5844 9 16.25 8.66562 16.25 8.25V6.75H14.75C14.3344 6.75 14 6.41563 14 6C14 5.58437 14.3344 5.25 14.75 5.25H16.25V3.75C16.25 3.33437 16.5844 3 17 3Z" fill="white"/>
+</svg>
 
+                                            {/* <svg className="w-4 h-4" fill="none" stroke="cur
+                                            rentColor" viewBox="0 0 24 24">
+                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                          </svg> */}
+                                          
+                                          Create My Account
+                                            </>
+                                         )}
+                                         </button>
+                                         {/**signin */}
+                                         <p className='text-center text-sm text-[#364153] pt-1 mt-4'>
+                                            Already have an account? {" "}
+                                            <Link href="/login" className='text-[#16A34A] hover:text-green-700 font-semibold hover:underline'>
+                                            Sign In
+                                         </Link>
+                                         </p>
+                                         </div>
                                      </form>
-                                 </div>
+                                 
                             </div>
                             </div>
-                           
                     </div>
                 </div>
             </div>
         </main>
     </div> 
-)
-
+);
 }
-                                         
-                               
-                                           
-//                       {!formik.errors.password && (
-//                         <p className="text-xs text-gray-400 mt-1">
-//                           Must be at least 8 characters with numbers and symbols
-//                         </p>
-//                       )}
-//                     </div> */}
+                                                                                                 
 
-//                     {/* Confirm Password */}
-//                     <div>
-//                       <label htmlFor="rePassword" className="block text-sm font-medium text-gray-700 mb-1">
-//                         Confirm Password<span className="text-green-600 ml-0.5">*</span>
-//                       </label>
-//                       <div className="relative">
-//                         <input
-//                           id="rePassword"
-//                           {...formik.getFieldProps("rePassword")}
-//                           type={showConfirm ? "text" : "password"}
-//                           placeholder="confirm your password"
-//                           className={`w-full px-4 py-3 pr-10 rounded-lg border text-sm transition-all outline-none
-//                             ${formik.touched.rePassword && formik.errors.rePassword
-//                               ? "border-red-400 bg-red-50"
-//                               : "border-gray-200 bg-gray-50 focus:border-green-500 focus:ring-2 focus:ring-green-100 focus:bg-white"
-//                             }`}
-//                         />
-//                         <button
-//                           type="button"
-//                           onClick={() => setShowConfirm(!showConfirm)}
-//                           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-//                         >
-//                           {showConfirm ? (
-//                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-//                             </svg>
-//                           ) : (
-//                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-//                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-//                             </svg>
-//                           )}
-//                         </button>
-//                       </div>
-//                       {formik.touched.rePassword && formik.errors.rePassword && (
-//                         <p className="text-xs text-red-500 mt-1">{formik.errors.rePassword}</p>
-//                       )}
-//                     </div>
-
-//                     {/* Phone */}
-//                     <Field id="phone" label="Phone Number" type="tel" placeholder="+1 234 567 8900" />
-
-//                     {/* Terms */}
-//                     <div>
-//                       <label className="flex items-start gap-3 cursor-pointer group">
-//                         <input
-//                           id="terms"
-//                           type="checkbox"
-//                           {...formik.getFieldProps("terms")}
-//                           checked={formik.values.terms}
-//                           className="mt-0.5 w-4 h-4 accent-green-600 cursor-pointer flex-shrink-0"
-//                         />
-//                         <span className="text-sm text-gray-600">
-//                           I agree to the{" "}
-//                           <Link href="/terms" className="text-green-600 hover:underline font-medium">
-//                             Terms of Service
-//                           </Link>{" "}
-//                           and{" "}
-//                           <Link href="/privacy" className="text-green-600 hover:underline font-medium">
-//                             Privacy Policy
-//                           </Link>{" "}
-//                           <span className="text-green-600">*</span>
-//                         </span>
-//                       </label>
-//                       {formik.touched.terms && formik.errors.terms && (
-//                         <p className="text-xs text-red-500 mt-1">{formik.errors.terms}</p>
-//                       )}
-//                     </div>
-
-//                     {/* Submit */}
-//                     <button
-//                       type="submit"
-//                       disabled={loading}
-//                       className="w-full flex items-center justify-center gap-2 py-3.5 px-6 bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold rounded-xl transition-all duration-200 text-sm shadow-sm hover:shadow-md disabled:cursor-not-allowed"
-//                     >
-//                       {loading ? (
-//                         <>
-//                           <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-//                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-//                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-//                           </svg>
-//                           Creating Account...
-//                         </>
-//                       ) : (
-//                         <>
-//                           <svg className="w-4 h-4" fill="none" stroke="cur
-// rentColor" viewBox="0 0 24 24">
-//                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-//                           </svg>
-//                           Create My Account
-//                         </>
-//                       )}
-//                     </button>
-
-//                     {/* Sign in link */}
-//                     <p className="text-center text-sm text-gray-500 pt-1">
-//                       Already have an account?{" "}
-//                       <Link
-//                         href="/login"
-//                         className="text-green-600 hover:text-green-700 font-semibold hover:underline"
-//                       >
-//                         Sign In
-//                       </Link>
-//                     </p>
-//                   </form>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </main>
-//     </div>
-//   );
-// }
