@@ -2,8 +2,10 @@ import React from 'react'
 import { FaTruck } from "react-icons/fa";
 import { FaGift } from "react-icons/fa6";
 import  Link  from 'next/link';
+import { useSession, signOut } from "next-auth/react";
 
 export default function FirstNav() {
+  const { data: session } = useSession();
   return <>
   {/* <div>FirstNav</div> */}
   <div className="hidden w-full border-b bg-amber-300 border-gray-100  justify-between xl:flex p-1">
@@ -36,20 +38,39 @@ export default function FirstNav() {
             support@freshcart.com
           </span>
 
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1 cursor-pointer hover:text-green-600 transition-colors">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-              </svg>
-              <Link href='/login'>Sign In</Link>
-            </span>
-            <span className="flex items-center gap-1 cursor-pointer hover:text-green-600 transition-colors">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-              </svg>
-               <Link href='/register'>Sign Up</Link>
-            </span>
-          </div>
+          {session ? (
+  <div className="flex items-center gap-3">
+    <span className="flex items-center gap-1 text-green-700 font-semibold">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+      </svg>
+      {session.user?.name}
+    </span>
+    <button
+      onClick={() => signOut({ callbackUrl: "/login" })}
+      className="flex items-center gap-1 cursor-pointer hover:text-red-500 transition-colors"
+    >
+      Sign Out
+    </button>
+  </div>
+) : (
+  
+  <div className="flex items-center gap-3">
+    <span className="flex items-center gap-1 cursor-pointer hover:text-green-600 transition-colors">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+      </svg>
+      <Link href='/login'>Sign In</Link>
+    </span>
+    <span className="flex items-center gap-1 cursor-pointer hover:text-green-600 transition-colors">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+      </svg>
+      <Link href='/register'>Sign Up</Link>
+    </span>
+  </div>
+
+)}
         </div>
 
       </div>

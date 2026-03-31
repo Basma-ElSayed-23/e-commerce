@@ -4,7 +4,10 @@ import {Inter} from "next/font/google";
 import "./globals.css";
 import Navbar from "./_components/Navbar/Navbar";
 import Footer from "./_components/Footer/Footer";
+import { SessionProvider } from "next-auth/react";
 import { Variable } from "lucide-react";
+import Providers from "./_components/Providers";
+
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -37,10 +40,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-(family-name:--font-inter) antialiased`}
       >
+      <Providers>
         <Navbar/>
         {children}
         <Footer/>
+        </Providers>
       </body>
     </html>
   );
 }
+
