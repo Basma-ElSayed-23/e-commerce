@@ -1,4 +1,3 @@
-"use client"
 
 // import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
@@ -10,7 +9,7 @@ import Footer from "./_components/Footer/Footer";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 // import Providers from "./_components/Providers";
-
+import Providers from "./Providers/Providers";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -46,13 +45,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-(family-name:--font-inter) antialiased`}
       >
-      <SessionProvider>
+      <Providers>
         {/* <FirstNav/> */}
         <Navbar/>
         {children}
         <Toaster/>
         <Footer/>
-        </SessionProvider>
+        </Providers>
       </body>
     </html>
   );

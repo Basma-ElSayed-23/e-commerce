@@ -1,6 +1,21 @@
-import { NextAuthOptions } from "next-auth";
+import { DefaultSession, NextAuthOptions } from "next-auth";
 import credentials from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
+
+declare module "next-auth" {
+  interface Session {
+    user: DefaultSession["user"] & {
+      id?: string;
+    };
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id?: string;
+    routeToken?: string;
+  }
+}
 
 
 
@@ -65,8 +80,9 @@ console.log("jwt param...",param)
 
 
 if (param.user){
-param.token.routeToken= param.user.accessToken
-param.token.id = param.user.id
+const user = param.user as { accessToken?: string; id?: string }
+param.token.routeToken = user.accessToken
+param.token.id = user.id
 
 }
 
@@ -75,7 +91,9 @@ return param.token
 
 session(param){
 
-param.session.id = param.token.id as string
+if (param.session.user) {
+  param.session.user.id = param.token.id as string;
+}
 // param.session.token = param.token.routeToken
 
 console.log("session params..." , param)

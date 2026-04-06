@@ -32,15 +32,17 @@ const form = useForm<LoginType>({
   resolver: zodResolver(LoginSchema),
  });
  
- const {handleSubmit, control} = form;
+//  const {handleSubmit, control} = form;
+const {handleSubmit, register} = form;
 
  async function mySubmit(data : LoginType) {
-  console.log("data" , data);
+  // console.log("data" , data);
+  console.log("email:", data.email, "password:", data.password);
 
 const response = await signIn("credentials", {...data , redirect: false, callbackUrl: "/"})
 
 
-// const result = await UserLogin(data)
+
 
   if (response?.ok) {
     toast.success("welcome back ✅", {
@@ -51,7 +53,7 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
       router.push("/");
     }, 3000);
   }else{
-    toast.error(response?.error, {
+    toast.error(response?.error || "Login failed", {
       duration: 3000,
       position:"top-center",
     });
@@ -65,15 +67,15 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
 
   function handleLogin() {
   if (!email || !password) {
-    toast.error("من فضلك املئي البيانات ❌");
+    toast.error("Please fill in all fields ❌");
     return;
   }
 
-  // حفظ البيانات
+  
   localStorage.setItem("isLoggedIn", "true");
   localStorage.setItem("userName", email);
 
-  toast.success("تم تسجيل الدخول بنجاح 🎉");
+  toast.success("login successful ✅");
 
   setTimeout(() => {
     router.push("/");
@@ -130,31 +132,36 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
           </p>
 
           {/* Email */}
-          <input
+          {/* <input
             type="email"
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full border rounded-lg px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
+          /> */}
 
-          {/* Password */}
-          <div className="relative mb-3">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 pr-10"
-            />
+          <input
+  type="email"
+  placeholder="Email Address"
+  {...register("email")}
+  className="w-full border rounded-lg px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+/>
 
-            <span
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2 cursor-pointer text-gray-400"
-            >
-              👁️
-            </span>
-          </div>
+{/* Password */}
+<div className="relative mb-3">
+  <input
+    type={showPassword ? "text" : "password"}
+    placeholder="Password"
+    {...register("password")}
+    className="w-full border rounded-lg px-3 py-2 pr-10"
+  />
+  <span
+    onClick={() => setShowPassword(!showPassword)}
+    className="absolute right-3 top-2 cursor-pointer text-gray-400"
+  >
+    👁️
+  </span>
+</div>
 
           {/* Options */}
           <div className="flex justify-between items-center text-sm mb-4">
@@ -170,7 +177,7 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
 
           {/* Button */}
           <button
-            onClick={handleLogin}
+             onClick={handleSubmit(mySubmit)}
             className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
           >
             Sign In

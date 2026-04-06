@@ -293,7 +293,8 @@ import { Button } from "@base-ui/react/button";
 export default function MainNavbar() {
   const { data: mySessionData , status } = useSession();
 
-
+console.log("STATUS:", status);
+console.log("SESSION:", mySessionData);
 
   return (
     <>
