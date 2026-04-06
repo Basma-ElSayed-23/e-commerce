@@ -9,7 +9,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import loginImg from '@/assets/images/login.png';
 import toast from "react-hot-toast";
 import { LoginSchema , LoginType } from "@/schemas/authSchemas.schemas";
@@ -18,6 +18,7 @@ import { $strip } from "zod/v4/core";
 import { UserLogin } from "@/actions/auth.action";
 import {useForm} from "react-hook-form"
  import {zodResolver} from "@hookform/resolvers/zod"
+import { signIn } from "next-auth/react";
 
 
 export default function Login() {
@@ -36,9 +37,12 @@ const form = useForm<LoginType>({
  async function mySubmit(data : LoginType) {
   console.log("data" , data);
 
-const result = await UserLogin(data)
+const response = await signIn("credentials", {...data , redirect: false, callbackUrl: "/"})
 
-  if (result) {
+
+// const result = await UserLogin(data)
+
+  if (response?.ok) {
     toast.success("welcome back ✅", {
       duration: 3000,
       position:"top-center",
@@ -46,6 +50,11 @@ const result = await UserLogin(data)
     setTimeout(() => {
       router.push("/");
     }, 3000);
+  }else{
+    toast.error(response?.error, {
+      duration: 3000,
+      position:"top-center",
+    });
   }
  }  
  

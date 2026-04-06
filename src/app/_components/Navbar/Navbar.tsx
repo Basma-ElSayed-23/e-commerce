@@ -277,9 +277,9 @@ import { Search, Headphones } from "lucide-react";
 import { FaRegHeart } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { IoCartOutline } from "react-icons/io5";
-import { RiUserLine } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 import FirstNav from "../FirstNav/FirstNav";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import {
   NavigationMenu,
@@ -288,9 +288,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { Button } from "@base-ui/react/button";
 
 export default function MainNavbar() {
-  const { data: session } = useSession();
+  const { data: mySessionData , status } = useSession();
+
+
 
   return (
     <>
@@ -359,33 +362,46 @@ export default function MainNavbar() {
                   <FaRegHeart />
                 </Link>
 
+ 
                 <Link href="/cart" className="relative text-3xl hover:text-green-600 transition-colors">
                   <IoCartOutline />
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                    1
-                  </span>
                 </Link>
 
-          {/* User Section in MainNavbar */}
-{session ? (
-  <Link 
-    href="/profile" 
-    className="flex items-center gap-2 hover:text-green-600 transition-colors"
-  >
-    <RiUserLine className="text-2xl text-green-600" />
-    <span className="text-sm font-semibold hidden lg:block">
-      {session.user?.name}
-    </span>
+{status === "authenticated" ? (
+  <Link href="/profile" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold">
+    <FaUser />
+    <span>{mySessionData?.user?.name || "Profile"}</span>
   </Link>
 ) : (
-  <Link
-    href="/login"
-    className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold transition-all"
-  >
-    <RiUserLine className="text-lg" />
-    Sign In
+  <Link href="/login" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold">
+    <FaUser />
+    <span>Sign In</span>
   </Link>
 )}
+
+
+{/* 
+                {status === "authenticated" ? (<Button className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold transition-all">
+               <FaUser/>
+                  <Link href="/login">Sign In</Link> 
+  </Button>
+): (
+  ""
+   )} */}
+
+          {/* User Section in MainNavbar */}
+
+   {/* <Link 
+    href="/profile" 
+    className="flex items-center gap-2 hover:text-green-600 transition-colors">
+    <RiUserLine className="text-2xl text-green-600" />
+    <span className="text-sm font-semibold hidden lg:block">
+      
+    </span>
+  </Link> 
+
+   */}
+
               </div>
             </div>
           </div>
