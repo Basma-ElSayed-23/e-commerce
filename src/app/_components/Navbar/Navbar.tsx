@@ -368,18 +368,25 @@ console.log("SESSION:", mySessionData);
                   <IoCartOutline />
                 </Link>
 
-{status === "authenticated" ? (
-  <Link href="/profile" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold">
+
+{/* {status !== "authenticated" && (
+  <Link href="/login" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold">
     <FaUser />
-    <span>{mySessionData?.user?.name || "Profile"}</span>
+    <span>Sign In</span>
   </Link>
-) : (
+)} */}
+        {status !== "authenticated" && (
   <Link href="/login" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold">
     <FaUser />
     <span>Sign In</span>
   </Link>
 )}
 
+{status === "authenticated" && (
+  <Link href="/profile" className="text-2xl hover:text-green-600 transition-colors">
+    <FaUser />
+  </Link>
+)}        
 
 {/* 
                 {status === "authenticated" ? (<Button className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold transition-all">

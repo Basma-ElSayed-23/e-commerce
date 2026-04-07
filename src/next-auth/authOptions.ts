@@ -80,26 +80,25 @@ console.log("jwt param...",param)
 
 
 if (param.user){
-const user = param.user as { accessToken?: string; id?: string }
-param.token.routeToken = user.accessToken
-param.token.id = user.id
-
+  const user = param.user as { accessToken?: string; id?: string };
+  param.token.routeToken = user.accessToken;
+  param.token.id = user.id;
 }
 
 return param.token
 },
 
-session(param){
+session({token, session}) {
 
-if (param.session.user) {
-  param.session.user.id = param.token.id as string;
-}
+// if (param.session.user) {
+//   param.session.user.id = param.token.id as string;
+// }
 // param.session.token = param.token.routeToken
 
-console.log("session params..." , param)
+console.log("session params...")
 
 
-    return param.session
+    return session
 }
 },
 

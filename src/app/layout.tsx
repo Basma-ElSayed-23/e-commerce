@@ -10,16 +10,8 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 // import Providers from "./_components/Providers";
 import Providers from "./Providers/Providers";
+import { Metadata } from "next";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,10 +19,10 @@ const inter = Inter({
 
 });
 
-// export const metadata: Metadata = {
-//   title: "Fresh Cart",
-//   description: "E-Commerce App",
-// };
+ export const metadata: Metadata = {
+   title: "Fresh Cart",
+  description: "E-Commerce App",
+ };
 
 export default function RootLayout({
   children,
@@ -39,9 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      {/* <head>
         <meta/>
-      </head>
+      </head> */}
       <body
         className={`${inter.variable} font-(family-name:--font-inter) antialiased`}
       >
