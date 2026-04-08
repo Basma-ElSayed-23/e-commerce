@@ -2,6 +2,7 @@ import { Button } from '@base-ui/react';
 import React from 'react' 
 import { FaStar } from "react-icons/fa";  
 import { ProductType } from '@/api/types/product.type';
+import Link from 'next/link';
 
 export default function ProductCard({product} : {product : ProductType}) {
   return (

@@ -81,7 +81,7 @@ console.log("jwt param...",param)
 
 if (param.user){
   const user = param.user as { accessToken?: string; id?: string };
-  param.token.routeToken = user.accessToken;
+  param.token.accessToken = user.accessToken;
   param.token.id = user.id;
 }
 
