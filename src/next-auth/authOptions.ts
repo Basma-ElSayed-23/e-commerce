@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 declare module "next-auth" {
   interface Session {
+    accessToken?: string;
     user: DefaultSession["user"] & {
       id?: string;
     };
@@ -90,13 +91,9 @@ return param.token
 
 session({token, session}) {
 
-// if (param.session.user) {
-//   param.session.user.id = param.token.id as string;
-// }
-// param.session.token = param.token.routeToken
-
-console.log("session params...")
-
+if (session.user) {
+  session.user.id = token.id as string;
+}
 
     return session
 }

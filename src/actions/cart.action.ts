@@ -9,7 +9,8 @@ export async function addToCart(productId: string) {
 const token = await getMyToken();
 
 if (!token) {
-    throw new Error("please login first !");
+    // throw new Error("please login first !");
+    return { status: "error", message: "please login first !" };
 }
 
  const res = await fetch(`https://ecommerce.routemisr.com/api/v2/cart`, {
@@ -19,6 +20,26 @@ if (!token) {
       "content-type": 'application/json',
     },
     body: JSON.stringify({ productId: productId }),
+  });
+
+  const data = await res.json();
+  return data;
+}
+
+export async function getLoggedUserCart() {
+const token = await getMyToken();
+
+if (!token) {
+    // throw new Error("please login first !");
+    return { status: "error", message: "please login first !" };
+}
+                         
+ const res = await fetch(`https://ecommerce.routemisr.com/api/v2/cart`, {
+    method: 'GET',
+    headers: {
+        token: token as string,
+      "content-type": 'application/json',
+    },
   });
 
   const data = await res.json();

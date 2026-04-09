@@ -41,7 +41,7 @@ export default function RootLayout({
         {/* <FirstNav/> */}
         <Navbar/>
         {children}
-        <Toaster/>
+        <Toaster position="top-center"/>
         <Footer/>
         </Providers>
       </body>

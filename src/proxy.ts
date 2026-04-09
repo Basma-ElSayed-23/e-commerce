@@ -10,15 +10,19 @@ const authRoutes= ["/login" , "/register"]
 // console.log("request", request.nextUrl.pathname);
 const myPath = request.nextUrl.pathname;
 
-const myToken = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-    secureCookie: process.env.NODE_ENV === "production",
-})
+// const myToken = await getToken({
+//     req: request,
+//     secret: process.env.NEXTAUTH_SECRET,
+//     secureCookie: process.env.NODE_ENV === "production",
+// })
 
 
 
-const token = myToken?.accessToken;
+// const token = myToken?.accessToken;
+
+
+const token = request.cookies.get("next-auth.session-token")?.value 
+           ?? request.cookies.get("__Secure-next-auth.session-token")?.value;
 
 
 if(!token && protectedRoutes.some((path) => myPath.startsWith(path) )) {

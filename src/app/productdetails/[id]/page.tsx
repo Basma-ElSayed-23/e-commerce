@@ -7,12 +7,14 @@ import { getSingleProduct } from '@/api/services/routemisr.service';
 
 //https://ecommerce.routemisr.com/api/v1/products/6428de2adc1175abc65ca05b
 
-export default async function productDetails(props :{params : Promise<{id : string}>}) {
+// export default async function productDetails(props :{params : Promise<{id : string}>}) {
 
-const params = await props.params
-const id = params.id
+// const params = await props.params
+// const id = params.id
 
+export default async function ProductDetails({ params }: { params:Promise < { id: string } > }) {
 
+const { id } = await params
 
 const myProduct = await getSingleProduct(id)
 
@@ -41,7 +43,7 @@ const myProduct = await getSingleProduct(id)
       {myProduct?.ratingAverage}
       {`(${myProduct?.ratingsQuantity})`} reviews
   </div>
- <AddBtn/>
+ <AddBtn id={id} word='Add to cart' classes='bg-green-500 text-white px-4 py-2 rounded'/>
       </div>
       </div>
       
