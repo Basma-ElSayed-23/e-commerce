@@ -280,6 +280,9 @@ import { IoCartOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import FirstNav from "../FirstNav/FirstNav";
 import { useSession } from "next-auth/react";
+import { getLoggedUserCart } from "@/actions/cart.action";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   NavigationMenu,
@@ -291,7 +294,23 @@ import {
 import { Button } from "@base-ui/react/button";
 
 export default function MainNavbar() {
+  const router = useRouter();
   const { data: mySessionData , status } = useSession();
+  const [cartCount, setCartCount] = useState(0);
+  
+
+useEffect(() => {
+  async function fetchCart() {
+    if (status === "authenticated") {
+      const token = (mySessionData as any)?.accessToken ?? "";
+      const res = await getLoggedUserCart(token);
+      if (res.status === "success") {
+        setCartCount(res.data?.products?.length ?? 0);
+      }
+    }
+  }
+  fetchCart();
+}, [status]);
 
 console.log("STATUS:", status);
 console.log("SESSION:", mySessionData);
@@ -364,9 +383,17 @@ console.log("SESSION:", mySessionData);
                 </Link>
 
  
-                <Link href="/cart" className="relative text-3xl hover:text-green-600 transition-colors">
+                {/* <Link href="/cart" className="relative text-3xl hover:text-green-600 transition-colors">
                   <IoCartOutline />
-                </Link>
+                </Link> */}
+                <Link href="/cart" className="relative text-3xl hover:text-green-600 transition-colors">
+  <IoCartOutline />
+  {cartCount > 0 && (
+    <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+      {cartCount}
+    </span>
+  )}
+</Link>
 
 
 {/* {status !== "authenticated" && (
