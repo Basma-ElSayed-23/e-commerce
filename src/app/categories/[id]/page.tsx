@@ -11,6 +11,10 @@ export default async function CategoryDetails({ params }: { params: Promise<{ id
   const response = await getProductsByCategory(id);
   const products = response?.data ?? [];
 
+  if (!category) {
+  return <div className="text-center mt-20 text-red-500">Category not found</div>;
+}
+
   return (
     <div className="w-[90%] mx-auto my-8">
 
@@ -18,7 +22,7 @@ export default async function CategoryDetails({ params }: { params: Promise<{ id
       <div className="bg-linear-to-r from-green-500 to-emerald-400 text-white p-8 rounded-xl mb-6 flex items-center gap-4">
         <img src={category.image} className="w-16 h-16 bg-white p-2 rounded" />
         <div>
-          <h1 className="text-2xl font-bold">{category.name}</h1>
+          <h1 className="text-2xl font-bold">{category?.name}</h1>
           <p>Choose a subcategory to browse products</p>
         </div>
       </div>
