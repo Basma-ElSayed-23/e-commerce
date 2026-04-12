@@ -1,27 +1,47 @@
 "use client"
 
 import { Button } from '@base-ui/react';
-import React from 'react' 
 import { FaStar } from "react-icons/fa";  
 import { ProductType } from '@/api/types/product.type';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
+import React, { useState } from 'react'
+import { addToCart } from '@/actions/cart.action';
+import { useSession } from 'next-auth/react';
+
 
 export default function ProductCard({product} : {product : ProductType}) {
 
+const { data: session } = useSession();
+const [isLoading, setIsLoading] = useState(false);
 
+// const handleAddToCart = () => {
+//   toast.success("Product added to cart!" , { 
+//     duration: 2000,
+//     position: "top-center",
+// });
 
-const handleAddToCart = () => {
-  toast.success("Product added to cart!" , { 
-    duration: 2000,
-    position: "top-center",
-});
+// console.log("Product added to cart!");
 
-console.log("Product added to cart!");
+// };
 
-};
-
-
+async function handleAddToCart() {
+  setIsLoading(true);
+  const token = (session as any)?.accessToken;
+  if (!token) {
+    toast.error("please login first!", {position: "top-right", duration: 2000});
+    setIsLoading(false);
+    return;
+  }
+  const res = await addToCart(product.id, token);
+  if (res.status === "success") {
+    toast.success(res.message, {position: "top-right", duration: 2000});
+    window.dispatchEvent(new CustomEvent("cartUpdated"));
+  } else {
+    toast.error(res.message, {position: "top-right", duration: 2000});
+  }
+  setIsLoading(false);
+}
 
 
   return (
@@ -45,7 +65,18 @@ console.log("Product added to cart!");
   </>
 ) :( product.price
 )}
-<Button onClick={handleAddToCart} id={product.id} className='size-10 rounded-full bg-[#16A34A] text-white cursor-pointer text-xl font-bold'>+</Button>
+{/* <Button onClick={handleAddToCart} id={product.id} className='size-10 rounded-full bg-[#16A34A] text-white cursor-pointer text-xl font-bold'>+</Button> */}
+
+
+<Button 
+  onClick={(e) => { e.preventDefault(); handleAddToCart(); }}
+  disabled={isLoading}
+  id={product.id} 
+  className='size-10 rounded-full bg-[#16A34A] text-white cursor-pointer text-xl font-bold flex items-center justify-center'>
+  {isLoading ? (
+  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"/>
+) : "+"}
+</Button>
     </div>
     </div>
     </Link>

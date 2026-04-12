@@ -46,6 +46,9 @@ export default function Cart() {
   const token = (session as any)?.accessToken ?? "";
   const [showClearModal, setShowClearModal] = useState(false);
   const [cartCleared, setCartCleared] = useState(false);
+  const [removeModal, setRemoveModal] = useState<{show: boolean; productId: string; productName: string}>({ // ← هنا
+  show: false, productId: "", productName: ""
+});
 
   const [cartData, setCartData] = useState<CartData | null>(null);
 
@@ -66,6 +69,7 @@ export default function Cart() {
   async function handleRemove(productId: string) {
     const res = await removeFromCart(productId, token); 
     if (res.status === "success") getUserCart();
+    window.dispatchEvent(new CustomEvent("cartUpdated"));
   }
 
   async function handleQuantity(productId: string, count: number) {
@@ -79,6 +83,7 @@ export default function Cart() {
     await removeFromCart(product.product._id, token);
   }
   await getUserCart();
+  window.dispatchEvent(new CustomEvent("cartUpdated"));
   setCartCleared(true);
 }
   
@@ -139,7 +144,7 @@ return (
                     {product.price * product.count} EGP
                   </p>
 
-                  <button onClick={() => handleRemove(product.product._id)}
+                  <button onClick={() => setRemoveModal({ show: true, productId: product.product._id, productName: product.product.title })}
                     className="w-9 h-9 bg-red-100 hover:bg-red-200 text-red-500 rounded-full flex items-center justify-center transition-colors">
                     <FaTrash size={14} />
                   </button>
@@ -303,6 +308,30 @@ return (
               className="w-full py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold transition-colors">
               Continue Shopping
             </button>
+          </div>
+        </div>
+      )}
+
+      {removeModal.show && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-xl">
+            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FaTrash className="text-red-400 text-2xl" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Remove Item?</h3>
+            <p className="text-gray-500 text-sm mb-6">
+              Remove <span className="font-semibold text-gray-700">{removeModal.productName}</span> from your cart?
+            </p>
+            <div className="flex gap-3">
+              <button onClick={() => setRemoveModal({ show: false, productId: "", productName: "" })}
+                className="flex-1 py-3 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 font-semibold transition-colors">
+                Cancel
+              </button>
+              <button onClick={() => { handleRemove(removeModal.productId); setRemoveModal({ show: false, productId: "", productName: "" }); }}
+                className="flex-1 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold transition-colors">
+                Remove
+              </button>
+            </div>
           </div>
         </div>
       )}

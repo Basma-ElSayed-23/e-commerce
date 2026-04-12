@@ -33,19 +33,21 @@
 //className='size-10 w-full rounded-lg bg-[#16A34A] text-white text-sm cursor-pointer p-4 my-4 font-bold '
 
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { addToCart } from '@/actions/cart.action';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react'; // ✅
+import { useSession } from 'next-auth/react';
+
 
 export default function AddBtn({classes, word, id}: {classes: string; word: string; id: string}) {
   const router = useRouter();
-  const { data: session } = useSession(); // ✅
+  const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
   async function AddProduct() {
     console.log("add");
-    
+    setIsLoading(true); 
     const token = (session as any)?.accessToken; // ✅ جيبي التوكن من الكلاينت
     
     if (!token) {
@@ -57,14 +59,22 @@ export default function AddBtn({classes, word, id}: {classes: string; word: stri
     
     if (res.status === "success") {
       toast.success(res.message, {position: "top-right", duration: 2000});
+      window.dispatchEvent(new CustomEvent("cartUpdated"))
       setTimeout(() => router.push('/cart'), 2000);
     } else {
       toast.error(res.message, {position: "top-right", duration: 2000});
     }
+    setIsLoading(false);
   }
 
-  return (
-    <button onClick={(e) => {e.preventDefault(); AddProduct();}} className={classes}>
+  return ( 
+    <button onClick={(e) => {e.preventDefault(); AddProduct();}}  disabled={isLoading}
+     className={classes}> {isLoading ? ( // ← هنا
+        <svg className="animate-spin w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+        </svg>
+      ) : word}
       {word}
     </button>
   );

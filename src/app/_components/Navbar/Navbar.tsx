@@ -299,18 +299,35 @@ export default function MainNavbar() {
   const [cartCount, setCartCount] = useState(0);
   
 
+// useEffect(() => {
+//   async function fetchCart() {
+//     if (status === "authenticated") {
+//       const token = (mySessionData as any)?.accessToken ?? "";
+//       const res = await getLoggedUserCart(token);
+//       if (res.status === "success") {
+//         setCartCount(res.data?.products?.length ?? 0);
+//       }
+//     }
+//   }
+//   fetchCart();
+// }, [status]);
+
 useEffect(() => {
+  if (status !== "authenticated") return;
+
   async function fetchCart() {
-    if (status === "authenticated") {
-      const token = (mySessionData as any)?.accessToken ?? "";
-      const res = await getLoggedUserCart(token);
-      if (res.status === "success") {
-        setCartCount(res.data?.products?.length ?? 0);
-      }
+    const token = (mySessionData as any)?.accessToken ?? "";
+    const res = await getLoggedUserCart(token);
+    if (res.status === "success") {
+      setCartCount(res.data?.products?.length ?? 0);
     }
   }
+
   fetchCart();
-}, [status]);
+
+  window.addEventListener("cartUpdated", fetchCart);
+  return () => window.removeEventListener("cartUpdated", fetchCart);
+}, [status, mySessionData]);
 
 console.log("STATUS:", status);
 console.log("SESSION:", mySessionData);
