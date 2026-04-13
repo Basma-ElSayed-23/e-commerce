@@ -79,3 +79,14 @@ export async function getSubcategoriesByCategory(categoryId: string) {
     return undefined;
   }
 }
+export async function getProductsBySubcategory(subcategoryId: string) {
+  try {
+    const res = await fetch(
+      `https://ecommerce.routemisr.com/api/v1/products?subcategory=${subcategoryId}`
+    );
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    return undefined;
+  }
+}
