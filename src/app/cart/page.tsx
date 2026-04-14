@@ -212,9 +212,13 @@ return (
       </button>
 
       {/* Checkout Button */}
-      <button className="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center gap-2">
+      {/* <button className="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center gap-2">
         🔒 Secure Checkout
-      </button>
+      </button> */}
+
+      <Link href="/checkout" className="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center gap-2">
+     🔒 Secure Checkout
+     </Link>
 
       {/* Secure Payment + Fast Delivery */}
       <div className="flex justify-center gap-6 text-xs text-gray-400 pt-1">
