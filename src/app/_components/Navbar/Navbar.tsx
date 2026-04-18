@@ -9,6 +9,7 @@ import { FaUser } from "react-icons/fa";
 import FirstNav from "../FirstNav/FirstNav";
 import { useSession } from "next-auth/react";
 import { getLoggedUserCart } from "@/actions/cart.action";
+import { getWishlist } from "@/actions/wishlist.action";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getAllCategories } from '@/api/services/routemisr.service';
@@ -27,6 +28,7 @@ export default function MainNavbar() {
   const router = useRouter();
   const { data: mySessionData , status } = useSession();
   const [cartCount, setCartCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
 
@@ -58,6 +60,20 @@ useEffect(() => {
 
   window.addEventListener("cartUpdated", fetchCart);
   return () => window.removeEventListener("cartUpdated", fetchCart);
+}, [status, mySessionData]);
+
+useEffect(() => {
+  if (status !== "authenticated") return;
+
+  async function fetchWishlist() {
+    const token = (mySessionData as any)?.accessToken ?? "";
+    const res = await getWishlist(token);
+    if (res?.data) setWishlistCount(res.data.length);
+  }
+
+  fetchWishlist();
+  window.addEventListener("wishlistUpdated", fetchWishlist);
+  return () => window.removeEventListener("wishlistUpdated", fetchWishlist);
 }, [status, mySessionData]);
 
 useEffect(() => {
@@ -163,9 +179,18 @@ console.log("SESSION:", mySessionData);
                   <span className="text-xs leading-tight">Support<br />24/7 Help</span>
                 </Link>
 
-                <Link href="/wishlist" className="text-2xl hover:text-green-600 transition-colors">
+                {/* <Link href="/wishlist" className="text-2xl hover:text-green-600 transition-colors">
                   <FaRegHeart />
-                </Link>
+                </Link> */}
+
+                <Link href="/wishlist" className="relative text-2xl hover:text-green-600 transition-colors">
+  <FaRegHeart />
+  {wishlistCount > 0 && (
+    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+      {wishlistCount}
+    </span>
+  )}
+</Link>
 
  
                 {/* <Link href="/cart" className="relative text-3xl hover:text-green-600 transition-colors">

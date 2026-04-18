@@ -48,13 +48,14 @@ declare module "next-auth" {
       id: string;
       email: string;
       name: string;
+      accessToken?: string;
     };
-    accessToken?: string; // 👈 ده اللي كان ناقص
+    accessToken?: string; 
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    accessToken?: string; // 👈 لازم يتعرف هنا كمان
+    accessToken?: string;
   }
 }

@@ -108,7 +108,7 @@
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
-import { Session, User, NextAuthOptions } from "next-auth"; // ✅
+import { Session, User, NextAuthOptions } from "next-auth"; 
 
 export const authOptions: NextAuthOptions = {
   providers: [

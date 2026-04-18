@@ -13,12 +13,11 @@ import { redirect, useRouter } from "next/navigation";
 import loginImg from '@/assets/images/login.png';
 import toast from "react-hot-toast";
 import { LoginSchema , LoginType } from "@/schemas/authSchemas.schemas";
-import { ZodObject, ZodEmail, ZodString } from "zod";
-import { $strip } from "zod/v4/core";
 import { UserLogin } from "@/actions/auth.action";
 import {useForm} from "react-hook-form"
  import {zodResolver} from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 
 export default function Login() {
@@ -170,9 +169,9 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
               Keep me signed in
             </label>
 
-            <a href="#" className="text-green-600">
+            <Link  href="/forgetpassword" className="text-green-600">
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           {/* Button */}
@@ -206,6 +205,3 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
   );
 }
 
-// function zodResolver(LoginSchema: ZodObject<{ email: ZodEmail; password: ZodString; }, $strip>) {
-//   throw new Error("Function not implemented.");
-// }
