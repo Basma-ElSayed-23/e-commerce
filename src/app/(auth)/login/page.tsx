@@ -18,6 +18,10 @@ import {useForm} from "react-hook-form"
  import {zodResolver} from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { TiShoppingCart } from "react-icons/ti";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 
 
 export default function Login() {
@@ -32,7 +36,7 @@ const form = useForm<LoginType>({
  });
  
 //  const {handleSubmit, control} = form;
-const {handleSubmit, register} = form;
+const {handleSubmit, register , formState: {errors, isSubmitting}} = form;
 
  async function mySubmit(data : LoginType) {
   // console.log("data" , data);
@@ -60,45 +64,45 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
  }  
  
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   // const router = useRouter();
 
-  function handleLogin() {
-  if (!email || !password) {
-    toast.error("Please fill in all fields ❌");
-    return;
-  }
+//   function handleLogin() {
+//   if (!email || !password) {
+//     toast.error("Please fill in all fields ❌");
+//     return;
+//   }
 
   
-  localStorage.setItem("isLoggedIn", "true");
-  localStorage.setItem("userName", email);
+//   localStorage.setItem("isLoggedIn", "true");
+//   localStorage.setItem("userName", email);
 
-  toast.success("login successful ✅");
+//   toast.success("login successful ✅");
 
-  setTimeout(() => {
-    router.push("/");
-    router.refresh();
-  }, 1000);
-}
-  return (
-    <div className="bg-[#f5f7f9] min-h-screen flex items-center justify-center px-4">
+//   setTimeout(() => {
+//     router.push("/");
+//     router.refresh();
+//   }, 1000);
+// }
 
-      {/* Container */}
+
+ return (
+  <div className="bg-[#f5f7f9] min-h-screen flex flex-col">
+
+    {/* Container */}
+    <div className="flex-1 flex items-center justify-center px-4 py-8">
       <div className="max-w-[1280px] w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
         {/* LEFT SIDE */}
         <div className="hidden lg:flex flex-col items-center text-center">
           <Image src={loginImg} alt="login" className='w-[350px] mb-6' />
-
           <h2 className="text-[20px] font-semibold mb-2">
             FreshCart - Your One-Stop Shop for Fresh Products
           </h2>
-
           <p className="text-gray-500 text-sm mb-6 max-w-[400px]">
             Join thousands of happy customers who trust FreshCart for their daily grocery needs.
           </p>
-
           <div className="flex gap-6 text-sm text-gray-600">
             <span>Free Delivery</span>
             <span>Secure Payment</span>
@@ -112,17 +116,17 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
           <h2 className="text-[22px] font-bold text-green-600 text-center">
             FreshCart
           </h2>
-
           <h3 className="text-[16px] font-semibold text-center mb-6">
             Welcome Back!
           </h3>
 
           {/* Social Buttons */}
-          <button className="w-full border rounded-lg py-2 mb-3 flex items-center justify-center gap-2 hover:bg-gray-50">
+          <button className="w-full border border-gray-200 rounded-xl py-2.5 mb-3 flex items-center justify-center gap-2 hover:bg-gray-50 transition text-sm font-medium text-gray-700">
+            <FcGoogle className="text-xl" />
             Continue with Google
           </button>
-
-          <button className="w-full border rounded-lg py-2 mb-4 flex items-center justify-center gap-2 hover:bg-gray-50">
+          <button className="w-full border border-gray-200 rounded-xl py-2.5 mb-5 flex items-center justify-center gap-2 hover:bg-gray-50 transition text-sm font-medium text-gray-700">
+            <FaFacebook className="text-xl text-blue-600" />
             Continue with Facebook
           </button>
 
@@ -131,77 +135,96 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
           </p>
 
           {/* Email */}
-          {/* <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-          /> */}
+          <div className="mb-3">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </span>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                {...register("email")}
+                className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+              />
+            </div>
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+            )}
+          </div>
 
-          <input
-  type="email"
-  placeholder="Email Address"
-  {...register("email")}
-  className="w-full border rounded-lg px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-/>
+          {/* Password */}
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-1">
+              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <Link href="/forgetpassword" className="text-green-600 text-xs hover:underline">
+                Forgot Password?
+              </Link>
+            </div>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </span>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                {...register("password")}
+                className="w-full border border-gray-200 rounded-xl pl-10 pr-12 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+              </button>
+            </div>
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
+            )}
+          </div>
 
-{/* Password */}
-<div className="relative mb-3">
-  <input
-    type={showPassword ? "text" : "password"}
-    placeholder="Password"
-    {...register("password")}
-    className="w-full border rounded-lg px-3 py-2 pr-10"
-  />
-  <span
-    onClick={() => setShowPassword(!showPassword)}
-    className="absolute right-3 top-2 cursor-pointer text-gray-400"
-  >
-    👁️
-  </span>
-</div>
-
-          {/* Options */}
-          <div className="flex justify-between items-center text-sm mb-4">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" />
-              Keep me signed in
-            </label>
-
-            <Link  href="/forgetpassword" className="text-green-600">
-              Forgot Password?
-            </Link>
+          {/* Keep signed in */}
+          <div className="flex items-center gap-2 mb-5">
+            <input type="checkbox" id="keepSignedIn" className="w-4 h-4 accent-green-600 rounded" />
+            <label htmlFor="keepSignedIn" className="text-sm text-gray-600">Keep me signed in</label>
           </div>
 
           {/* Button */}
           <button
-             onClick={handleSubmit(mySubmit)}
-            className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+            onClick={handleSubmit(mySubmit)}
+            disabled={isSubmitting}
+            className="w-full bg-green-600 text-white py-3 rounded-xl font-semibold text-sm hover:bg-green-700 active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Sign In
+            {isSubmitting ? "Signing in..." : "Sign In"}
           </button>
 
           {/* Footer */}
           <p className="text-center text-sm mt-4">
             New to FreshCart?
-            <a href="#" className="text-green-600 font-medium ml-1">
+            <a href="/register" className="text-green-600 font-medium ml-1">
               Create an account
             </a>
           </p>
         </div>
+
       </div>
-
-      {/* Shadow Style */}
-      <style>
-        {`
-          .custom-shadow {
-            box-shadow: 0px 8px 10px rgba(0,0,0,0.10),
-                        0px 20px 25px rgba(0,0,0,0.10);
-          }
-        `}
-      </style>
     </div>
-  );
-}
 
+    {/* Shadow Style */}
+    <style>
+      {`
+        .custom-shadow {
+          box-shadow: 0px 8px 10px rgba(0,0,0,0.10),
+                      0px 20px 25px rgba(0,0,0,0.10);
+        }
+      `}
+    </style>
+
+  </div>
+);
+}
