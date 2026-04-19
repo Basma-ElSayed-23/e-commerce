@@ -20,7 +20,6 @@ export default function Footer() {
         <p className="text-xs text-gray-500">On orders over 500 EGP</p>
       </div>
     </div>
-
     <div className="flex items-center gap-3">
       <span className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
         <FaUndo className="text-green-600 text-lg" />
@@ -30,7 +29,6 @@ export default function Footer() {
         <p className="text-xs text-gray-500">14-day return policy</p>
       </div>
     </div>
-
     <div className="flex items-center gap-3">
       <span className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
         <FaShieldAlt className="text-green-600 text-lg" />
@@ -40,7 +38,6 @@ export default function Footer() {
         <p className="text-xs text-gray-500">100% secure checkout</p>
       </div>
     </div>
-
     <div className="flex items-center gap-3">
       <span className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
         <FaHeadset className="text-green-600 text-lg" />
@@ -53,27 +50,18 @@ export default function Footer() {
 
   </div>
 </div>
-
     <footer className="w-full bg-[#101828] pt-12 pb-0">
-
-      {/* Main Footer Content */}
       <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-52">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-gray-700">
-
-          {/* Col 1 — Brand */}
           <div className="lg:col-span-2 flex flex-col gap-4">
             {/* Logo */}
             <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 w-fit">
               <TiShoppingCart className="text-2xl text-green-600" />
               <span className="text-lg font-bold text-gray-900">FreshCart</span>
             </div>
-
-            {/* Description */}
             <p className="text-[14px] leading-6 text-gray-400 max-w-xs">
               FreshCart is your one-stop destination for quality products. From fashion to electronics, we bring you the best brands at competitive prices with a seamless shopping experience.
             </p>
-
-            {/* Contact */}
             <div className="flex flex-col gap-2">
               <Link href="tel:+18001234567" className="flex items-center gap-2 text-[14px] text-gray-400 hover:text-green-400 transition-colors">
                 <FaPhone className="text-green-500 text-sm" />
@@ -88,8 +76,6 @@ export default function Footer() {
                 123 Commerce Street, New York, NY 10001
               </span>
             </div>
-
-            {/* Social Icons */}
             <div className="flex items-center gap-3 mt-1">
               {[
                 { icon: <FaFacebookF />, href: "https://facebook.com" },
@@ -101,15 +87,12 @@ export default function Footer() {
                   key={i}
                   href={s.href}
                   target="_blank"
-                  className="w-8 h-8 rounded-full bg-gray-700 hover:bg-green-600 flex items-center justify-center text-gray-300 hover:text-white text-sm transition-all"
-                >
+                  className="w-8 h-8 rounded-full bg-gray-700 hover:bg-green-600 flex items-center justify-center text-gray-300 hover:text-white text-sm transition-all">
                   {s.icon}
                 </Link>
               ))}
             </div>
           </div>
-
-          {/* Col 2 — Shop */}
           <div className="flex flex-col gap-3">
             <h4 className="text-white font-semibold text-[16px] mb-1">Shop</h4>
             {[
@@ -125,8 +108,6 @@ export default function Footer() {
               </Link>
             ))}
           </div>
-
-          {/* Col 3 — Account */}
           <div className="flex flex-col gap-3">
             <h4 className="text-white font-semibold text-[16px] mb-1">Account</h4>
             {[
@@ -142,8 +123,6 @@ export default function Footer() {
               </Link>
             ))}
           </div>
-
-          {/* Col 4 — Support & Legal */}
           <div className="flex flex-col gap-8">
             {/* Support */}
             <div className="flex flex-col gap-3">
@@ -161,7 +140,7 @@ export default function Footer() {
               ))}
             </div>
 
-            {/* Legal */}
+            
             <div className="flex flex-col gap-3">
               <h4 className="text-white font-semibold text-[16px] mb-1">Legal</h4>
               {[
@@ -175,14 +154,9 @@ export default function Footer() {
               ))}
             </div>
           </div>
-
-        </div>
-
-        {/* Bottom Bar */}
+        </div>  
         <div className="flex flex-col sm:flex-row items-center justify-between py-5 gap-3">
           <p className="text-[14px] text-gray-500">© 2026 FreshCart. All rights reserved.</p>
-
-          {/* Payment Icons */}
           <div className="flex items-center gap-4 text-gray-400">
             <div className="flex items-center gap-1.5 text-[13px]">
               <SiVisa className="text-2xl text-blue-400" />
@@ -198,7 +172,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
       </div>
     </footer>
     </>

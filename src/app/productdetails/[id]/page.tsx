@@ -29,13 +29,13 @@ const myProduct = await getSingleProduct(id)
           </div> )} 
       </div>
       </div>
-      
+  
       <div className='w-3/4 p-3'>
       <h2 className='text-2xl font-bold'>{myProduct?.title}</h2>
       <h3 className='my-5 font-bold'>{myProduct?.description}</h3>
       <div className='flex gap-2 items-center'>
         <span>Price:</span>
- <span className='text-[#16A34A] font-bold text-lg'>{myProduct?.priceAfterDiscount}</span>
+   <span className='text-[#16A34A] font-bold text-lg'>{myProduct?.priceAfterDiscount}</span>
   <span className='text-sm text-slate-600 line-through'>{myProduct?.price}</span>
   </div>
   <div className='rate flex items-center gap-2'><FaStar className='text-yellow-300' /> <FaStar className='text-yellow-300' /> 
@@ -45,12 +45,9 @@ const myProduct = await getSingleProduct(id)
   </div>
  <AddBtn id={id} word='Add to cart' classes='bg-green-500 text-white px-4 py-2 rounded'/>
       </div>
-      </div>
-      
+      </div>  
     </>
-    
-  )
-}
+  )}
 
 
 

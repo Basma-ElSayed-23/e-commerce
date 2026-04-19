@@ -1,4 +1,3 @@
-
 // import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import {Inter} from "next/font/google";
@@ -11,7 +10,6 @@ import { Toaster } from "react-hot-toast";
 // import Providers from "./_components/Providers";
 import Providers from "./Providers/Providers";
 import { Metadata } from "next";
-
 
 const inter = Inter({
   variable: "--font-inter",

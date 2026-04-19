@@ -79,10 +79,8 @@ export default function ForgotPassword() {
   return (
     <div className="bg-[#f5f7f9] min-h-screen flex items-center justify-center px-4">
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-
-        {/* LEFT SIDE */}
         <div className="hidden lg:flex flex-col items-center text-center">
-  {/* Icons Card */}
+  
   <div className="w-87.5 h-70 bg-green-50 rounded-2xl flex items-center justify-center mb-6 relative">
     <div className="flex items-end gap-4">
   <div className="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center justify-center self-end mb-4">
@@ -113,14 +111,12 @@ export default function ForgotPassword() {
 </div>
 </div>
 
-        {/* RIGHT SIDE */}
+        
         <div className="mx-auto w-full max-w-154 bg-white rounded-[16px] p-8 custom-shadow">
 
           <h2 className="text-[22px] font-bold text-green-600 text-center">FreshCart</h2>
           <h3 className="text-[16px] font-semibold text-center mb-2">Forgot Password?</h3>
           <p className="text-center text-gray-400 text-sm mb-6">No worries, we'll send you a reset code</p>
-
-          {/* Steps Indicator */}
           <div className="flex items-center justify-center gap-2 mb-8">
             {[1, 2, 3].map((s) => (
               <React.Fragment key={s}>
@@ -133,7 +129,7 @@ export default function ForgotPassword() {
             ))}
           </div>
 
-          {/* Step 1 */}
+          
           {step === 1 && (
             <>
               <label className="text-sm font-medium text-gray-700 mb-1 block">Email Address</label>
@@ -142,19 +138,16 @@ export default function ForgotPassword() {
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
+                className="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"/>
               <button
                 onClick={handleSendCode}
                 disabled={loading}
-                className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
-              >
+                className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 disabled:opacity-50">
                 {loading ? "Sending..." : "Send Reset Code"}
               </button>
-            </>
-          )}
+            </>)}
 
-          {/* Step 2 */}
+          
           {step === 2 && (
             <>
               <label className="text-sm font-medium text-gray-700 mb-1 block">Reset Code</label>
@@ -163,19 +156,15 @@ export default function ForgotPassword() {
                 placeholder="Enter the code from your email"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
+                className="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"/>
               <button
                 onClick={handleVerifyCode}
                 disabled={loading}
-                className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
-              >
+                className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 disabled:opacity-50">
                 {loading ? "Verifying..." : "Verify Code"}
               </button>
             </>
-          )}
-
-          {/* Step 3 */}
+ )}
           {step === 3 && (
             <>
               <label className="text-sm font-medium text-gray-700 mb-1 block">New Password</label>
@@ -184,29 +173,24 @@ export default function ForgotPassword() {
                 placeholder="Enter your new password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
+                className="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"/>
               <button
                 onClick={handleResetPassword}
                 disabled={loading}
-                className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
-              >
+                className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 disabled:opacity-50">
                 {loading ? "Resetting..." : "Reset Password"}
               </button>
             </>
           )}
-
           <Link href="/login" className="block text-center text-sm text-green-600 mt-4">
             ← Back to Sign In
           </Link>
-
           <p className="text-center text-sm mt-2 text-gray-500">
             Remember your password?{" "}
             <Link href="/login" className="text-green-600 font-medium">Sign In</Link>
           </p>
         </div>
       </div>
-
       <style>{`
         .custom-shadow {
           box-shadow: 0px 8px 10px rgba(0,0,0,0.10), 0px 20px 25px rgba(0,0,0,0.10);

@@ -33,7 +33,7 @@ export default function Checkout() {
   const [errors, setErrors] = useState({ city: "", details: "", phone: "" });
 
  useEffect(() => {
-  if (status === "authenticated" && token) { // ✅ تأكد إن token موجود
+  if (status === "authenticated" && token) {
     getLoggedUserCart(token).then((res) => {
       if (res.status === "success") setCartData(res.data);
     });
@@ -77,16 +77,13 @@ console.log(JSON.stringify(session))
 
 return (
   <div className="container mx-auto px-4 py-6">
-
     <h2 className="text-2xl font-semibold mb-2">Complete Your Order</h2>
     <p className="text-gray-500 mb-6">
       Review your items and complete your purchase
     </p>
 
-    {/* ===== Row 1 ===== */}
+    
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-
-      {/* Shipping Address */}
       <div className="bg-white rounded-2xl shadow border overflow-hidden h-full">
         <div className="bg-green-600 text-white px-5 py-4">
           <div className="flex items-center gap-2 font-semibold text-lg">
@@ -97,10 +94,9 @@ return (
           </div>
           <p className="text-green-100 text-sm mt-0.5">Where should we deliver your order?</p>
         </div>
-
         <div className="p-5 space-y-4">
           <div className="bg-blue-50 border border-blue-100 p-3 rounded-lg text-sm text-blue-600 flex items-start gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z" />
             </svg>
             <div>
@@ -108,7 +104,6 @@ return (
               <p className="text-blue-400">Please ensure your address is accurate for smooth delivery</p>
             </div>
           </div>
-
           <div>
             <label className="text-sm font-medium text-gray-700 mb-1 block">
               City <span className="text-red-500">*</span>
@@ -142,12 +137,10 @@ return (
                 rows={3}
                 value={form.details}
                 onChange={(e) => setForm({ ...form, details: e.target.value })}
-                className="w-full border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 resize-none"
-              />
+                className="w-full border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 resize-none"/>
             </div>
             {errors.details && <p className="text-red-500 text-xs mt-1">{errors.details}</p>}
           </div>
-
           <div>
             <label className="text-sm font-medium text-gray-700 mb-1 block">
               Phone Number <span className="text-red-500">*</span>
@@ -161,8 +154,7 @@ return (
                 placeholder="01xxxxxxxxx"
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="w-full border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
-              />
+                className="w-full border rounded-xl pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"/>
             </div>
             {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
             <p className="text-xs text-gray-400 mt-1 text-right">Egyptian numbers only</p>
@@ -170,9 +162,8 @@ return (
         </div>
       </div>
 
-      {/* Order Summary */}
+      
       <div className="bg-white rounded-2xl shadow border overflow-hidden h-full flex flex-col">
-
         <div className="bg-green-600 text-white px-5 py-4">
           <div className="flex items-center gap-2 font-semibold text-lg">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -182,15 +173,13 @@ return (
           </div>
           <p className="text-green-100 text-sm mt-0.5">{cartData?.products?.length ?? 0} items</p>
         </div>
-
         <div className="flex-1 overflow-y-auto divide-y divide-gray-100 px-4 py-2">
           {cartData?.products?.map((item) => (
             <div key={item._id} className="flex items-center gap-3 py-3">
               <img
                 src={item.product.imageCover}
                 alt={item.product.title}
-                className="w-12 h-12 rounded-lg object-cover border"
-              />
+                className="w-12 h-12 rounded-lg object-cover border"/>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-800 truncate">{item.product.title}</p>
                 <p className="text-xs text-gray-500">{item.count} × {item.price} EGP</p>
@@ -201,7 +190,6 @@ return (
             </div>
           ))}
         </div>
-
         <div className="border-t px-5 py-4 space-y-2 bg-gray-50">
           <div className="flex justify-between text-sm text-gray-600">
             <span>Subtotal</span>
@@ -224,13 +212,11 @@ return (
             </span>
           </div>
         </div>
-
         <div className="px-5 pb-5 pt-3 bg-gray-50">
           <button
             onClick={handlePlaceOrder}
             disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors"
-          >
+            className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6 8H19M9 21a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z" />
             </svg>
@@ -257,14 +243,12 @@ return (
             </span>
           </div>
         </div>
-
       </div>
     </div>
 
-    {/* ===== Row 2 ===== */}
+    
     <div className="mt-6">
       <div className="bg-white rounded-2xl shadow border overflow-hidden">
-
         <div className="bg-green-600 text-white px-5 py-4">
           <div className="flex items-center gap-2 font-semibold text-lg">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -274,17 +258,12 @@ return (
           </div>
           <p className="text-green-100 text-sm mt-0.5">Choose how you'd like to pay</p>
         </div>
-
         <div className="p-4 space-y-3">
-
-          {/* Cash on Delivery */}
           <label
             className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
               paymentMethod === "cash"
                 ? "border-green-500 bg-green-50"
-                : "border-gray-200 hover:bg-gray-50"
-            }`}
-          >
+                : "border-gray-200 hover:bg-gray-50"}`}>
             <div className="w-11 h-11 rounded-xl bg-green-600 flex items-center justify-center flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -295,25 +274,20 @@ return (
               <p className="text-sm text-gray-500">Pay when your order arrives at your doorstep</p>
             </div>
             <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-              paymentMethod === "cash" ? "border-green-500 bg-green-500" : "border-gray-300"
-            }`}>
+              paymentMethod === "cash" ? "border-green-500 bg-green-500" : "border-gray-300" }`}>
               {paymentMethod === "cash" && (
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 111.414-1.414L8.414 12.172l7.879-7.879a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              )}
+                </svg>)}
             </div>
             <input type="radio" name="payment" className="hidden" checked={paymentMethod === "cash"} onChange={() => setPaymentMethod("cash")} />
           </label>
 
-          {/* Pay Online */}
           <label
             className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
               paymentMethod === "online"
                 ? "border-green-500 bg-green-50"
-                : "border-gray-200 hover:bg-gray-50"
-            }`}
-          >
+                : "border-gray-200 hover:bg-gray-50"}`}>
             <div className="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -338,18 +312,15 @@ return (
               </div>
             </div>
             <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-              paymentMethod === "online" ? "border-green-500 bg-green-500" : "border-gray-300"
-            }`}>
+              paymentMethod === "online" ? "border-green-500 bg-green-500" : "border-gray-300" }`}>
               {paymentMethod === "online" && (
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 111.414-1.414L8.414 12.172l7.879-7.879a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              )}
+                </svg>)}
             </div>
             <input type="radio" name="payment" className="hidden" checked={paymentMethod === "online"} onChange={() => setPaymentMethod("online")} />
           </label>
 
-          {/* Secure & Encrypted */}
           <div className="flex items-center gap-3 p-4 rounded-xl bg-green-50 border border-green-100">
             <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -361,11 +332,9 @@ return (
               <p className="text-xs text-green-600">Your payment info is protected with 256-bit SSL encryption</p>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-
   </div>
 );
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 
-export default function shop() {
+export default function page() {
   return (
     <div>shop-page</div>
-    
   )
 }

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -31,7 +31,6 @@ export default function BrandDetails() {
 
   useEffect(() => {
     const brandId = Array.isArray(id) ? id[0] : id;
-
     fetch(`https://ecommerce.routemisr.com/api/v1/products?brand=${brandId}`)
       .then(r => r.json())
       .then(data => {
@@ -50,7 +49,6 @@ export default function BrandDetails() {
 
   return (
     <div>
-      {/* Breadcrumb */}
       <div className="bg-white border-b px-6 py-3">
         <div className="container mx-auto text-sm text-gray-500">
           <span>Home</span>
@@ -60,8 +58,6 @@ export default function BrandDetails() {
           <span className="text-gray-800 font-medium">{brand?.name}</span>
         </div>
       </div>
-
-      {/* Green Brand Banner */}
       <div className="bg-green-500 py-12 px-6">
         <div className="container mx-auto flex items-center gap-5">
           {brand?.image && (
@@ -71,20 +67,15 @@ export default function BrandDetails() {
                 alt={brand.name}
                 width={60}
                 height={60}
-                className="object-contain"
-              />
-            </div>
-          )}
+                className="object-contain"/>
+            </div>)}
           <div>
             <h1 className="text-white text-4xl font-bold">{brand?.name}</h1>
             <p className="text-white/80 mt-1">Shop {brand?.name} products</p>
           </div>
         </div>
       </div>
-
-      {/* Products Section */}
       <div className="container mx-auto px-6 py-8">
-        {/* Active Filters */}
         <div className="flex items-center gap-3 mb-3 text-sm text-gray-600">
           <Filter size={15} />
           <span>Active Filters:</span>
@@ -94,10 +85,7 @@ export default function BrandDetails() {
           </span>
           <button className="text-gray-400 underline hover:text-gray-600">Clear all</button>
         </div>
-
         <p className="text-sm text-gray-400 mb-6">Showing {products.length} products</p>
-
-        
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 lg:pr-32 xl:pr-52">
           {products.map(product => {
             const discount = product.priceAfterDiscount
@@ -107,14 +95,11 @@ export default function BrandDetails() {
 
             return (
               <div key={product._id} className="border rounded-xl p-4 bg-white relative group hover:shadow-md transition-shadow">
-                {/* Discount Badge */}
                 {discount > 0 && (
                   <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded z-10">
                     -{discount}%
-                  </span>
-                )}
+                  </span>)}
 
-                {/* Action Icons */}
                 <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
                   <button className="bg-white shadow p-1.5 rounded-full hover:text-red-500 transition-colors">
                     <Heart size={15} />
@@ -127,26 +112,19 @@ export default function BrandDetails() {
                   </button>
                 </div>
 
-                {/* Product Image */}
                 <div className="flex items-center justify-center h-48 mb-3">
                   <Image
                     src={product.imageCover}
                     alt={product.title}
                     width={180}
                     height={180}
-                    className="object-contain max-h-44"
-                  />
+                    className="object-contain max-h-44"/>
                 </div>
-
-                {/* Category */}
                 <p className="text-xs text-gray-400 mb-1">{product.category?.name}</p>
 
-                {/* Title */}
                 <h2 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-2">
                   {product.title}
                 </h2>
-
-                {/* Stars */}
                 <div className="flex items-center gap-1 mb-3">
                   {[1, 2, 3, 4, 5].map(star => (
                     <Star
@@ -156,15 +134,13 @@ export default function BrandDetails() {
                         star <= Math.round(product.ratingsAverage)
                           ? 'text-yellow-400 fill-yellow-400'
                           : 'text-gray-300 fill-gray-200'
-                      }
-                    />
+                      }/>
                   ))}
                   <span className="text-xs text-gray-400 ml-1">
                     {product.ratingsAverage} ({product.ratingsQuantity})
                   </span>
                 </div>
 
-                {/* Price + Add to Cart */}
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="font-bold text-gray-900">{displayPrice} EGP</span>

@@ -4,7 +4,7 @@ import Slider from './_components/Slider/Slider';
 // import img1 from '../assets/images/img1.jpg';
 import img4 from '../assets/images/img4.png';
 import HomeCategories from './_components/HomeCategories/HomeCategories';
-import { FaEnvelope, FaLeaf, FaTruck } from "react-icons/fa";
+import {  FaTruck, FaShieldAlt, FaUndo, FaHeadset, FaEnvelope, FaLeaf  } from "react-icons/fa";
 import { FaStar , FaApple, FaGooglePlay } from "react-icons/fa";
 import { lazy , Suspense } from 'react';
 import Link from 'next/link';
@@ -20,10 +20,55 @@ export default function Home() {
   { src: img4.src, title: "Fast & Free Delivery", desc: "Same day delivery available"},
 ]} />
     
+
+<div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-6">
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="flex items-center gap-3 border border-gray-100 rounded-2xl p-4 shadow-sm">
+      <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{background: '#FEF2F2'}}>
+        <FaTruck className="text-blue-500 text-xl" />
+      </div>
+      <div>
+        <p className="font-semibold text-sm text-gray-800">Free Shipping</p>
+        <p className="text-xs text-gray-400">On orders over 500 EGP</p>
+      </div>
+    </div>
+    <div className="flex items-center gap-3 border border-gray-100 rounded-2xl p-4 shadow-sm">
+      <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{background: '#ECFDF5'}}>
+        <FaShieldAlt className="text-green-500 text-xl" />
+      </div>
+      <div>
+        <p className="font-semibold text-sm text-gray-800">Secure Payment</p>
+        <p className="text-xs text-gray-400">100% secure transactions</p>
+      </div>
+    </div>
+
+    <div className="flex items-center gap-3 border border-gray-100 rounded-2xl p-4 shadow-sm">
+      <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{background: '#F3F4F6'}}>
+        <FaUndo className="text-orange-500 text-xl" />
+      </div>
+      <div>
+        <p className="font-semibold text-sm text-gray-800">Easy Returns</p>
+        <p className="text-xs text-gray-400">14-day return policy</p>
+      </div>
+    </div>
+
+    <div className="flex items-center gap-3 border border-gray-100 rounded-2xl p-4 shadow-sm">
+      <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{background: '#F9FAFB'}}>
+        <FaHeadset className="text-purple-500 text-xl" />
+      </div>
+      <div>
+        <p className="font-semibold text-sm text-gray-800">24/7 Support</p>
+        <p className="text-xs text-gray-400">Dedicated support team</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <Suspense
  fallback ={   
   <div className='h-75 bg-white text-black text-2xl font-bold flex justify-center items-center '>Loading...</div>
 }>
+
 <LazyHomeCategoryComponent/>
 </Suspense>
 
@@ -46,8 +91,6 @@ export default function Home() {
         </Link>
       </div>
     </div>
-
-   
     <div className="relative rounded-2xl p-8 overflow-hidden" style={{background: 'linear-gradient(135deg, #FF8904, #FF2056)'}}>
       <div className="absolute top-0 right-0 w-48 h-48 bg-orange-300 rounded-full -translate-y-1/2 translate-x-1/2 opacity-40" />
       <div className="absolute bottom-0 left-0 w-32 h-32 bg-red-600 rounded-full translate-y-1/2 -translate-x-1/2 opacity-40" />
@@ -66,14 +109,9 @@ export default function Home() {
 
   </div>
 </div>
-
     <FeaturedProducts/>
-  
-   
 <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-    
 <div className="bg-gray-50 border border-gray-200 border-l-2 border-l-green-200 rounded-3xl p-8 pl-10">
   <div className="flex items-center gap-2 mb-3">
     <span className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
@@ -101,7 +139,6 @@ export default function Home() {
       Members-Only Deals
     </span>
   </div>
-
   <div className="flex gap-2">
     <input
       type="email"

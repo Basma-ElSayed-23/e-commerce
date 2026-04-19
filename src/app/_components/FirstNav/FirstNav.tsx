@@ -11,8 +11,6 @@ export default function FirstNav() {
   
   <div className="hidden w-full border-b  border-gray-100  justify-between xl:flex p-1">
       <div className="flex items-center justify-between px-3 w-full h-10.25 ">
-        
-        
         <div className="flex items-center gap-10 justify-between">
           <span className="flex items-center gap-1.5 text-[14px] font-medium leading-5 text-[#6a7282]">
             <FaTruck fill='#16A34A' />Free Shipping on Orders 500 EGP
@@ -22,7 +20,6 @@ export default function FirstNav() {
             <FaGift fill='#16A34A' /> New Arrivals Daily
           </span>
         </div>
-
         <div className="flex items-center gap-6 text-[14px] font-medium leading-5 text-[#6a7282]">
           <span className="flex items-center gap-1.5 cursor-pointer hover:text-green-600 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,9 +66,7 @@ export default function FirstNav() {
       </svg>
       <Link href='/register'>Sign Up</Link>
     </span>
-  </div>
-
-)}
+  </div>)}
         </div>
 
       </div>
@@ -79,5 +74,4 @@ export default function FirstNav() {
   
   </>
     
-  
 }

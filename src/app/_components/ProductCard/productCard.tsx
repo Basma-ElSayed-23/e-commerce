@@ -80,13 +80,9 @@ console.log(product)
     {product.priceAfterDiscount && (
     <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded z-10">
       -{Math.round(((product.price - product.priceAfterDiscount) / product.price) * 100)}%
-    </span>
-  )}
-     <button
-  onClick={handleWishlist}
-  disabled={wishlistLoading}
-  className='absolute top-3 right-3 z-20 p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors'
->
+    </span>)}
+     <button onClick={handleWishlist}  disabled={wishlistLoading}
+  className='absolute top-3 right-3 z-20 p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition-colors'>
   <svg viewBox="0 0 24 24" width="22" height="22"
     fill={isWishlisted ? "#e53935" : "none"}
     stroke={isWishlisted ? "#e53935" : "#9ca3af"}
@@ -94,8 +90,6 @@ console.log(product)
     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
   </svg>
 </button>
-
-
       <img src={product.imageCover} alt={product.title} className='w-full'/>
       <h2 className='line-clamp-1'>{product.title}</h2>
       <h3 className='line-clamp-1'>{product.description}</h3>
@@ -123,11 +117,7 @@ console.log(product)
 )}
 {/* <Button onClick={handleAddToCart} id={product.id} className='size-10 rounded-full bg-[#16A34A] text-white cursor-pointer text-xl font-bold'>+</Button> */}
 
-
-<Button 
-  onClick={(e) => { e.preventDefault(); handleAddToCart(); }}
-  disabled={isLoading}
-  id={product.id} 
+<Button onClick={(e) => { e.preventDefault(); handleAddToCart(); }} disabled={isLoading} id={product.id} 
   className='size-10 rounded-full bg-[#16A34A] text-white cursor-pointer text-xl font-bold flex items-center justify-center'>
   {isLoading ? (
   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"/>
@@ -137,7 +127,7 @@ console.log(product)
     </div>
     </Link>
    </div>
-    )
+    );
   }
 
 

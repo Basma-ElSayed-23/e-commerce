@@ -139,11 +139,9 @@ height: 12px !important;
   height: 5000px;
 } */
 
-/* Swiper Custom Arrows */
 .swiper {
   overflow: visible !important;
 }
-
 .custom-prev,
 .custom-next {
   position: absolute !important;
@@ -161,7 +159,6 @@ height: 12px !important;
   cursor: pointer !important;
   border: none !important;
 }
-
 .custom-prev { left: 16px !important; }
 .custom-next { right: 16px !important; }
 
@@ -170,20 +167,13 @@ height: 12px !important;
   background: white !important;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
 }
-
-/* خلي الـ swiper يظهر الـ pagination */
 .swiper {
   overflow: visible !important;
 }
-
-
-/* Swiper Pagination Customization */
-/* Slider Pagination - زي الـ Figma بالظبط */
 .swiper-pagination {
   bottom: 35px !important;
   z-index: 20 !important;
 }
-
 .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
@@ -191,7 +181,6 @@ height: 12px !important;
   border-radius: 9999px;
   transition: all 0.4s ease;
 }
-
 .swiper-pagination-bullet-active {
   width: 32px !important;
   height: 12px !important;

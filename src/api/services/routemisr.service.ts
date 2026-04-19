@@ -37,7 +37,7 @@ export async function getAllCategories() : Promise<CategoryType[] | undefined>{
 }
 
 
-////////
+
 
 export async function getSingleCategory(id: string): Promise<CategoryType | undefined> {
   try {
@@ -49,15 +49,6 @@ export async function getSingleCategory(id: string): Promise<CategoryType | unde
   }
 }
 
-// export async function getProductsByCategory(id: string) {
-//   try {
-//     const res = await fetch(`https://ecommerce.routemisr.com/api/v1/products?category=${id}`);
-//     const data = await res.json();
-//     return data;
-//   } catch (err) {
-//     return undefined;
-//   }
-// }
 export async function getProductsByCategory(id: string, subcategoryId?: string) {
   try {
     let url = `https://ecommerce.routemisr.com/api/v1/products?category=${id}`;

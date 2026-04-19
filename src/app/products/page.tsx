@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,11 +12,8 @@ export default function ProductsPage() {
   const categoryId = searchParams.get('category');
   const subcategoryId = searchParams.get('subcategory');
   const filterLabel = searchParams.get('label') || 'Filter';
-
   const [products, setProducts] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(true);
-
-  
 
  useEffect(() => {
   setLoading(true);
@@ -39,7 +36,6 @@ export default function ProductsPage() {
   }
 }, [categoryId, subcategoryId]);
 
-  // if (loading) return <div className="min-h-[calc(100vh-200px)] flex flex-col px-6 py-8 items-center justify-center text-lg">Loading...</div>;
 
  if (loading) return (
   <div className="min-h-screen flex items-center justify-center">
@@ -61,11 +57,8 @@ return (
         <button onClick={() => window.location.href = '/products'} className="text-emerald-600 hover:text-emerald-700 text-sm font-medium">
           Clear all
         </button>
-      </div>
-    )}
-
+      </div>)}
     <p className="text-gray-600 mb-10">Showing {products.length} products</p>
-
     {products.length === 0 ? (
       <div className="flex-1 flex flex-col items-center justify-center text-center">
         <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6">
@@ -77,8 +70,7 @@ return (
         <p className="text-gray-500 mb-8">No products match your current filters.</p>
         <button
           onClick={() => window.location.href = '/products'}
-          style={{ backgroundColor: '#16a34a', color: 'white', fontWeight: '600', padding: '14px 40px', borderRadius: '16px', border: 'none', cursor: 'pointer', fontSize: '16px' }}
-        >
+          style={{ backgroundColor: '#16a34a', color: 'white', fontWeight: '600', padding: '14px 40px', borderRadius: '16px', border: 'none', cursor: 'pointer', fontSize: '16px' }}>
           View All Products
         </button>
       </div>
@@ -87,11 +79,7 @@ return (
         {products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
-      </div>
-    )}
-
+      </div>)}
   </div>
 );
-
-
 }
