@@ -9,8 +9,8 @@ export default function FirstNav() {
   const { data: session } = useSession();
   return <>
   
-  <div className="hidden w-full border-b  border-gray-100  justify-between xl:flex p-1">
-      <div className="flex items-center justify-between px-3 w-full h-10.25 ">
+  <div className="hidden w-full border-b border-gray-100 justify-between xl:flex p-1">
+      <div className="flex items-center justify-between px-4 w-full h-10.25 ">
         <div className="flex items-center gap-10 justify-between">
           <span className="flex items-center gap-1.5 text-[14px] font-medium leading-5 text-[#6a7282]">
             <FaTruck fill='#16A34A' />Free Shipping on Orders 500 EGP

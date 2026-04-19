@@ -78,9 +78,9 @@ return (
     <nav className="bg-white border-b sticky top-0 z-50 shadow-sm">
       <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-3 md:py-4">
         <div className="hidden lg:flex items-center justify-between gap-8">
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center shrink-0">
             <TiShoppingCart className="text-4xl text-green-600" />
-            <Link href="/" className="text-2xl font-bold text-green-700 tracking-tight">FreshCart</Link>
+            <Link href="/" className="text-2xl font-bold text-[#21313C] tracking-tight">FreshCart</Link>
           </div>
           <div className="flex-1 max-w-3xl mx-4">
             <div className="relative">
@@ -204,7 +204,7 @@ return (
             <Link href="/" className="text-xl font-bold text-green-700 tracking-tight">FreshCart</Link>
           </div>
           <div className="flex items-center gap-3 text-gray-700">
-            <button onClick={() => setMobileSearchOpen(!mobileSearchOpen)} className="p-1 hover:text-green-600 transition-colors">
+            <button onClick={() => setMobileSearchOpen(!mobileSearchOpen)} className=" p-1 hover:text-green-600 transition-colors">
               <Search className="w-5 h-5" />
             </button>
             <Link href="/wishlist" className="relative p-1 hover:text-green-600 transition-colors">
@@ -246,9 +246,9 @@ return (
             onClick={() => setMobileMenuOpen(false)}/>
           <div className="lg:hidden fixed right-0 top-0 h-full w-80 z-50 bg-white flex flex-col shadow-2xl overflow-y-auto">
             <div className="flex items-center justify-between px-4 py-4 border-b">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center">
                 <TiShoppingCart className="text-3xl text-green-600" />
-                <span className="text-xl font-bold text-green-700">FreshCart</span>
+                <span className="text-xl font-bold text-[#21313C]">FreshCart</span>
               </div>
               <button onClick={() => setMobileMenuOpen(false)}>
                 <X className="w-6 h-6 text-gray-600" />

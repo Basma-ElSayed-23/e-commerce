@@ -4,8 +4,14 @@ import Link from "next/link";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import { SiVisa, SiMastercard, SiPaypal } from "react-icons/si";
+import {BsCreditCard} from "react-icons/bs";
 import { FaTruck, FaUndo, FaShieldAlt, FaHeadset } from "react-icons/fa";
+import {useSession} from "next-auth/react"
+
+
 export default function Footer() {
+  const {data: session}  = useSession();
+  
   return (
     <>
 <div className="w-full border-y border-green-100 bg-green-50 py-6 px-4 lg:px-52">
@@ -96,14 +102,15 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4 className="text-white font-semibold text-[16px] mb-1">Shop</h4>
             {[
-              { label: "All Products", href: "/shop" },
+              { label: "All Products", href: "/products" },
               { label: "Categories", href: "/categories" },
               { label: "Brands", href: "/brands" },
-              { label: "Electronics", href: "/categories/electronics" },
-              { label: "Men's Fashion", href: "/categories/mens-fashion" },
-              { label: "Women's Fashion", href: "/categories/womens-fashion" },
+              { label: "Electronics", href: "/products?category=6439d2d167d9aa4ca970649f&label=Electronics" },
+              { label: "Men's Fashion", href: "/products?category=6439d5b90049ad0b52b90048&label=Men's Fashion" },
+              { label: "Women's Fashion", href: "/products?category=6439d58a0049ad0b52b9003f&label=Women's Fashion" },
             ].map((item) => (
-              <Link key={item.href} href={item.href} className="text-[14px] text-gray-400 hover:text-green-400 transition-colors">
+              <Link key={item.href} href={item.label === "My Account" ? (session ? "/profile" : "/login") : item.href} 
+              className="text-[14px] text-gray-400 hover:text-green-400 transition-colors">
                 {item.label}
               </Link>
             ))}
@@ -111,14 +118,14 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4 className="text-white font-semibold text-[16px] mb-1">Account</h4>
             {[
-              { label: "My Account", href: "/account" },
-              { label: "Order History", href: "/orders" },
-              { label: "Wishlist", href: "/wishlist" },
-              { label: "Shopping Cart", href: "/cart" },
-              { label: "Sign In", href: "/signin" },
+              { label: "My Account", href: session ? "/profile" : "/login" },
+              { label: "Order History", href: session ? "/orders" : "/login" },
+              { label: "Wishlist", href: session ? "/wishlist" : "/login"},
+              { label: "Shopping Cart", href: session ? "/cart" : "/login"},
+              { label: "Sign In", href: session ? "/profile" : "/login"},
               { label: "Create Account", href: "/register" },
             ].map((item) => (
-              <Link key={item.href} href={item.href} className="text-[14px] text-gray-400 hover:text-green-400 transition-colors">
+              <Link key={item.label} href={item.href} className="text-[14px] text-gray-400 hover:text-green-400 transition-colors">
                 {item.label}
               </Link>
             ))}
@@ -158,18 +165,20 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between py-5 gap-3">
           <p className="text-[14px] text-gray-500">© 2026 FreshCart. All rights reserved.</p>
           <div className="flex items-center gap-4 text-gray-400">
-            <div className="flex items-center gap-1.5 text-[13px]">
-              <SiVisa className="text-2xl text-blue-400" />
-              <span>Visa</span>
-            </div>
-            <div className="flex items-center gap-1.5 text-[13px]">
-              <SiMastercard className="text-2xl text-red-400" />
-              <span>Mastercard</span>
-            </div>
-            <div className="flex items-center gap-1.5 text-[13px]">
-              <SiPaypal className="text-2xl text-blue-500" />
-              <span>PayPal</span>
-            </div>
+            
+       
+      <div className="flex items-center gap-1.5 text-[13px] text-gray-400">
+      <BsCreditCard className="text-xl" />
+       <span>Visa</span>
+      </div>
+     <div className="flex items-center gap-1.5 text-[13px] text-gray-400">
+     <BsCreditCard className="text-xl" />
+     <span>Mastercard</span>
+      </div>
+      <div className="flex items-center gap-1.5 text-[13px] text-gray-400">
+      <BsCreditCard className="text-xl" />
+      <span>PayPal</span>
+       </div>
           </div>
         </div>
       </div>

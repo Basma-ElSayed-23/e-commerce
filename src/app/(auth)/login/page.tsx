@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { LoginSchema , LoginType } from "@/schemas/authSchemas.schemas";
 import { UserLogin } from "@/actions/auth.action";
 import {useForm} from "react-hook-form"
- import {zodResolver} from "@hookform/resolvers/zod"
+import {zodResolver} from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { TiShoppingCart } from "react-icons/ti";
@@ -60,8 +60,8 @@ const response = await signIn("credentials", {...data , redirect: false, callbac
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
         <div className="hidden lg:flex flex-col items-center text-center">
-          <Image src={loginImg} alt="login" className='w-87.5 mb-6' />
-          <h2 className="text-[20px] font-semibold mb-2">
+          <Image src={loginImg} alt="login" className='w-154 h-96 rounded-2xl object-cover mb-6 [box-shadow:0px_4px_6px_-4px_rgba(0,0,0,0.10),0px_10px_15px_-3px_rgba(0,0,0,0.10)]' />
+          <h2 className="text-[28px] font-bold mb-2">
             FreshCart - Your One-Stop Shop for Fresh Products
           </h2>
           <p className="text-gray-500 text-sm mb-6 max-w-100">

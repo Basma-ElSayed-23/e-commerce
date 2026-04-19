@@ -1,6 +1,6 @@
 // import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
-import {Inter} from "next/font/google";
+// import {Inter} from "next/font/google";
 import "./globals.css";
 import FirstNav from "./_components/FirstNav/FirstNav";
 import Navbar from "./_components/Navbar/Navbar";
@@ -11,15 +11,17 @@ import { Toaster } from "react-hot-toast";
 import Providers from "./Providers/Providers";
 import { Metadata } from "next";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-
-});
+// const inter = Inter({
+//   variable: "--font-inter",
+//   subsets: ["latin"],
+// });
 
  export const metadata: Metadata = {
    title: "Fresh Cart",
   description: "E-Commerce App",
+  other: {
+    "google-fonts" :"https://fonts.google.com/css2?family=Exo:wght@400;500;600;700display=swap",
+  },
  };
 
 export default function RootLayout({
@@ -29,12 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
-        <meta/>
-      </head> */}
-      <body
-        className={`${inter.variable} font-(family-name:--font-inter) antialiased`}
-      >
+       <head>
+        <link href="https://fonts.google.com/css2?family=Exo:wght@400;500;600;700display=swap"  rel="stylesheet"/>
+      </head> 
+      <body>
       <Providers>
         {/* <FirstNav/> */}
         <Navbar/>
