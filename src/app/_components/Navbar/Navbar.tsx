@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Headphones, X, Menu  } from "lucide-react";
+import { Search, Headphones, X, Menu , LogOut  } from "lucide-react";
 import { FaRegHeart } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { IoCartOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import FirstNav from "../FirstNav/FirstNav";
-import { useSession } from "next-auth/react";
+import { useSession , signOut} from "next-auth/react";
 import { getLoggedUserCart } from "@/actions/cart.action";
 import { getWishlist } from "@/actions/wishlist.action";
 import { useState, useEffect } from "react";
@@ -22,7 +22,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Button } from "@base-ui/react/button";
+// import { Button } from "@base-ui/react/button";
 
 export default function MainNavbar() {
   const router = useRouter();
@@ -33,19 +33,8 @@ export default function MainNavbar() {
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
    const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
-// useEffect(() => {
-//   async function fetchCart() {
-//     if (status === "authenticated") {
-//       const token = (mySessionData as any)?.accessToken ?? "";
-//       const res = await getLoggedUserCart(token);
-//       if (res.status === "success") {
-//         setCartCount(res.data?.products?.length ?? 0);
-//       }
-//     }
-//   }
-//   fetchCart();
-// }, [status]);
 
 useEffect(() => {
   if (status !== "authenticated") return;
@@ -325,7 +314,7 @@ return (
     <nav className="bg-white border-b sticky top-0 z-50 shadow-sm">
       <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-3 md:py-4">
 
-        {/* ===== DESKTOP LAYOUT ===== */}
+        
         <div className="hidden lg:flex items-center justify-between gap-8">
           <div className="flex items-center gap-3 shrink-0">
             <TiShoppingCart className="text-4xl text-green-600" />
@@ -400,19 +389,66 @@ return (
             </Link>
 
             {status !== "authenticated" ? (
-              <Link href="/login" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold">
-                <FaUser />
-                <span>Sign In</span>
-              </Link>
-            ) : (
-              <Link href="/profile" className="text-2xl hover:text-green-600 transition-colors">
-                <FaUser />
-              </Link>
-            )}
+  <Link href="/login" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-7 py-2.5 rounded-full text-sm font-semibold">
+    <FaUser />
+    <span>Sign In</span>
+  </Link>
+) : (
+  <div className="relative">
+    <button onClick={() => setUserMenuOpen(!userMenuOpen)} className="text-2xl hover:text-green-600 transition-colors">
+      <FaUser />
+    </button>
+
+    {userMenuOpen && (
+      <>
+        <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
+        <div className="absolute right-0 top-10 z-50 bg-white rounded-2xl shadow-xl border border-gray-100 w-64 overflow-hidden">
+          {/* User Info */}
+          <div className="flex items-center gap-3 px-4 py-4 border-b bg-gray-50">
+            <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+              <FaUser className="text-white text-sm" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-gray-800">{(mySessionData?.user as any)?.name || "User"}</p>
+              <p className="text-xs text-gray-500">{mySessionData?.user?.email}</p>
+            </div>
+          </div>
+
+         
+          <div className="py-2">
+            <Link href="/profile" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+              <FaUser className="text-gray-400 w-4" />
+              My Profile
+            </Link>
+            <Link href="/orders" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+              <IoCartOutline className="text-gray-400 w-4 text-lg" />
+              My Orders
+            </Link>
+            <Link href="/wishlist" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors">
+              <FaRegHeart className="text-gray-400 w-4" />
+              My Wishlist
+            </Link>
+          </div>
+
+          
+          <div className="border-t py-2">
+            <button
+              onClick={() => { setUserMenuOpen(false); signOut(); }}
+              className="flex items-center gap-3 px-4 py-3 text-sm text-red-500 hover:bg-red-50 transition-colors w-full"
+            >
+              <LogOut className="text-red-400 w-4 h-4" />
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </>
+    )}
+  </div>
+)}
           </div>
         </div>
 
-        {/* ===== MOBILE LAYOUT ===== */}
+        
         <div className="flex lg:hidden items-center justify-between gap-3">
           <div className="flex items-center gap-2 shrink-0">
             <TiShoppingCart className="text-3xl text-green-600" />
@@ -444,7 +480,7 @@ return (
           </div>
         </div>
 
-        {/* Mobile Collapsible Search */}
+     
         {mobileSearchOpen && (
           <div className="lg:hidden mt-3">
             <div className="relative">
@@ -465,16 +501,16 @@ return (
       {/* ===== MOBILE MENU DRAWER ===== */}
       {mobileMenuOpen && (
         <>
-          {/* Overlay */}
+          
           <div
             className="lg:hidden fixed inset-0 z-40 bg-black/30"
             onClick={() => setMobileMenuOpen(false)}
           />
 
-          {/* Drawer */}
+          
           <div className="lg:hidden fixed right-0 top-0 h-full w-80 z-50 bg-white flex flex-col shadow-2xl overflow-y-auto">
 
-            {/* Header */}
+          
             <div className="flex items-center justify-between px-4 py-4 border-b">
               <div className="flex items-center gap-2">
                 <TiShoppingCart className="text-3xl text-green-600" />

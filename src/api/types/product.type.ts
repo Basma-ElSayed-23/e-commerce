@@ -19,7 +19,7 @@ updatedAt: string;
 id: string;
 availableColors?:string[];
 priceAfterDiscount?: number;
-
+ratingsAverage: number;
 
 }
 

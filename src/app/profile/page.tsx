@@ -1,15 +1,8 @@
-// import React from 'react'
-
-// export default function page() {
-//   return (
-//     <div>profile-page</div>
-//   )
-// }
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
-import { MapPin, User, Settings, Plus, SettingsIcon } from "lucide-react";
+import { MapPin, User, Settings, Plus, SettingsIcon, X } from "lucide-react";
 
 interface Address {
   id: string;
@@ -21,15 +14,20 @@ interface Address {
 const MOCK_ADDRESSES: Address[] = [];
 
 export default function MyAddresses() {
-  const [addresses] = useState<Address[]>(MOCK_ADDRESSES);
+ const [addresses, setAddresses] = useState<Address[]>([]);
+const [showModal, setShowModal] = useState(false);
+const [form, setForm] = useState({ name: "", address: "", phone: "", city: "" });
 
-  const handleAddAddress = () => {
-    console.log("Add new address clicked");
-  };
+ const handleAddAddress = () => {
+  if (!form.name || !form.address || !form.phone || !form.city) return;
+  setAddresses([...addresses, { ...form, id: Date.now().toString() }]);
+  setForm({ name: "", address: "", phone: "", city: "" });
+  setShowModal(false);
+};
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Green Header */}
+      
       <div className="bg-gradient-to-r from-green-600 via-green-500 to-green-400 pt-6 pb-10">
         <div className="max-w-6xl mx-auto px-6">
           <nav className="text-sm text-white/80 flex items-center gap-2 mb-6">
@@ -89,7 +87,7 @@ export default function MyAddresses() {
             </div>
           </div>
 
-          {/* Addresses Content */}
+          
           <div className="flex-1">
             <div className="flex items-center justify-between mb-9">
               <div>
@@ -98,7 +96,7 @@ export default function MyAddresses() {
               </div>
 
               <button
-                onClick={handleAddAddress}
+                onClick={() => setShowModal(true)}
                 className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-medium transition-colors"
               >
                 <Plus className="w-5 h-5" />
@@ -116,7 +114,7 @@ export default function MyAddresses() {
                   Add your first delivery address to make checkout faster and easier.
                 </p>
                 <button
-                  onClick={handleAddAddress}
+                  onClick={() => setShowModal(true)}
                   className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-8 py-3.5 rounded-2xl font-medium transition-colors"
                 >
                   <Plus className="w-5 h-5" />
@@ -127,6 +125,42 @@ export default function MyAddresses() {
           </div>
         </div>
       </div>
+      {showModal && (
+  <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center px-4" onClick={() => setShowModal(false)}>
+    <div className="bg-white rounded-2xl w-full max-w-lg p-8 shadow-xl" onClick={e => e.stopPropagation()}>
+      <div className="flex items-center justify-between mb-5">
+        <h3 className="text-lg font-bold text-gray-900">Add New Address</h3>
+        <button onClick={() => setShowModal(false)}>
+          <X className="w-5 h-5 text-gray-500" />
+        </button>
+      </div>
+      <div className="flex flex-col gap-4">
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Address Name</label>
+          <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder="e.g. Home, Office" className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm outline-none focus:border-green-500" />
+        </div>
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Full Address</label>
+          <textarea value={form.address} onChange={e => setForm({...form, address: e.target.value})} placeholder="Street, building, apartment..." className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm outline-none focus:border-green-500 h-36 resize-none" />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-1 block">Phone Number</label>
+            <input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} placeholder="01xxxxxxxxx" className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm outline-none focus:border-green-500" />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-1 block">City</label>
+            <input value={form.city} onChange={e => setForm({...form, city: e.target.value})} placeholder="Cairo" className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm outline-none focus:border-green-500" />
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-3 mt-6">
+        <button onClick={() => setShowModal(false)} className="py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition-colors">Cancel</button>
+        <button onClick={handleAddAddress} className="py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-medium transition-colors">Add Address</button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }

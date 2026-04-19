@@ -3,15 +3,16 @@ import { FaTruck } from "react-icons/fa";
 import { FaGift } from "react-icons/fa6";
 import  Link  from 'next/link';
 import { useSession, signOut } from "next-auth/react";
+import { LogOut } from 'lucide-react';
 
 export default function FirstNav() {
   const { data: session } = useSession();
   return <>
-  {/* <div>FirstNav</div> */}
-  <div className="hidden w-full border-b bg-amber-300 border-gray-100  justify-between xl:flex p-1">
-      <div className="flex items-center justify-between px-3 bg-blue-200 w-full h-10.25 ">
+  
+  <div className="hidden w-full border-b  border-gray-100  justify-between xl:flex p-1">
+      <div className="flex items-center justify-between px-3 w-full h-10.25 ">
         
-        {/* Left Side */}
+        
         <div className="flex items-center gap-10 justify-between">
           <span className="flex items-center gap-1.5 text-[14px] font-medium leading-5 text-[#6a7282]">
             <FaTruck fill='#16A34A' />Free Shipping on Orders 500 EGP
@@ -22,7 +23,6 @@ export default function FirstNav() {
           </span>
         </div>
 
-        {/* Right Side */}
         <div className="flex items-center gap-6 text-[14px] font-medium leading-5 text-[#6a7282]">
           <span className="flex items-center gap-1.5 cursor-pointer hover:text-green-600 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,6 +50,7 @@ export default function FirstNav() {
       onClick={() => signOut({ callbackUrl: "/login" })}
       className="flex items-center gap-1 cursor-pointer hover:text-red-500 transition-colors"
     >
+      <LogOut className="w-4 h-4" />
       Sign Out
     </button>
   </div>

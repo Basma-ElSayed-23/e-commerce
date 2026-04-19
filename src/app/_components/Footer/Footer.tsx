@@ -1,21 +1,59 @@
-// import React from 'react'
-
-// export default function Footer() {
-//   return (
-//     <div>Footer</div>
-//   )
-// }
-
-
 "use client";
 
 import Link from "next/link";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import { SiVisa, SiMastercard, SiPaypal } from "react-icons/si";
-
+import { FaTruck, FaUndo, FaShieldAlt, FaHeadset } from "react-icons/fa";
 export default function Footer() {
   return (
+    <>
+<div className="w-full border-y border-green-100 bg-green-50 py-6 px-4 lg:px-52">
+  <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+
+    <div className="flex items-center gap-3">
+      <span className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+        <FaTruck className="text-green-600 text-lg" />
+      </span>
+      <div>
+        <p className="text-sm font-semibold text-gray-800">Free Shipping</p>
+        <p className="text-xs text-gray-500">On orders over 500 EGP</p>
+      </div>
+    </div>
+
+    <div className="flex items-center gap-3">
+      <span className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+        <FaUndo className="text-green-600 text-lg" />
+      </span>
+      <div>
+        <p className="text-sm font-semibold text-gray-800">Easy Returns</p>
+        <p className="text-xs text-gray-500">14-day return policy</p>
+      </div>
+    </div>
+
+    <div className="flex items-center gap-3">
+      <span className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+        <FaShieldAlt className="text-green-600 text-lg" />
+      </span>
+      <div>
+        <p className="text-sm font-semibold text-gray-800">Secure Payment</p>
+        <p className="text-xs text-gray-500">100% secure checkout</p>
+      </div>
+    </div>
+
+    <div className="flex items-center gap-3">
+      <span className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+        <FaHeadset className="text-green-600 text-lg" />
+      </span>
+      <div>
+        <p className="text-sm font-semibold text-gray-800">24/7 Support</p>
+        <p className="text-xs text-gray-500">Contact us anytime</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
     <footer className="w-full bg-[#101828] pt-12 pb-0">
 
       {/* Main Footer Content */}
@@ -163,5 +201,6 @@ export default function Footer() {
 
       </div>
     </footer>
+    </>
   );
 }

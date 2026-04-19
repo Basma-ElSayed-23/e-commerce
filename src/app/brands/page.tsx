@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FaTags } from "react-icons/fa";
 
 interface Brand {
   _id: string;
@@ -70,7 +71,7 @@ export default function BrandsPage() {
 
   return (
     <>
-      {/* Purple Banner */}
+      
       <div className="bg-gradient-to-r from-purple-600 to-purple-500 pt-8 pb-12">
         <div className="container mx-auto px-6">
           <nav className="flex items-center text-white/80 text-sm mb-6">
@@ -80,8 +81,8 @@ export default function BrandsPage() {
           </nav>
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-              <span className="text-4xl">🏷️</span>
-            </div>
+      <FaTags className="text-white text-3xl" />
+         </div>
             <div>
               <h1 className="text-white text-5xl font-bold tracking-tight">Top Brands</h1>
               <p className="text-white/90 mt-2 text-lg">Shop from your favorite brands</p>
@@ -90,7 +91,7 @@ export default function BrandsPage() {
         </div>
       </div>
 
-      {/* Brands Grid */}
+      
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
           {brands.map((brand) => (
