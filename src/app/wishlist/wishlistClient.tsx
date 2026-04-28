@@ -1,83 +1,3 @@
-// "use client";
-
-// import { useState } from "react";
-// import { useSession } from "next-auth/react";
-// import { removeFromWishlist } from "@/actions/wishlist.action";
-// import Link from "next/link";
-// import Image from "next/image";
-
-// interface Product {
-//   _id: string;
-//   title: string;
-//   price: number;
-//   imageCover: string;
-//   ratingsAverage: number;
-// }
-
-// export default function WishlistClient({ initialItems }: { initialItems: Product[] }) {
-//   const { data: session } = useSession();
-//   const [items, setItems] = useState<Product[]>(initialItems);
-//   const [loadingId, setLoadingId] = useState<string | null>(null);
-
-//   async function handleRemove(productId: string) {
-//     const token = (session as any)?.accessToken || "";
-//     if (!token) return;
-//     setLoadingId(productId);
-//     await removeFromWishlist(productId, token);
-//     setItems(prev => prev.filter(p => p._id !== productId));
-//     setLoadingId(null);
-//   }
-
-//   if (items.length === 0) {
-//     return (
-//       <div className="min-h-[400px] flex items-center justify-center">
-//         <div className="flex flex-col items-center gap-3 text-center">
-//           <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
-//             <svg className="w-9 h-9 text-gray-400" viewBox="0 0 24 24" fill="none"
-//               stroke="currentColor" strokeWidth="1.5">
-//               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-//             </svg>
-//           </div>
-//           <h2 className="text-xl font-semibold">Your wishlist is empty</h2>
-//           <p className="text-gray-500 text-sm">Browse products and save your favorites here.</p>
-//           <Link href="/products"
-//             className="mt-3 bg-green-500 hover:bg-green-600 text-white px-12 py-3 rounded-lg font-medium transition-colors">
-//             Browse Products →
-//           </Link>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="container mx-auto px-4 py-8">
-//       <h1 className="text-2xl font-semibold mb-6">
-//         My Wishlist <span className="text-gray-400 text-lg">({items.length})</span>
-//       </h1>
-//       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-//         {items.map(item => (
-//           <div key={item._id} className="border rounded-xl p-3 flex flex-col gap-2">
-//             <Image
-//               src={item.imageCover}
-//               alt={item.title}
-//               width={300}
-//               height={200}
-//               className="w-full h-40 object-contain"
-//             />
-//             <h3 className="text-sm font-medium line-clamp-2">{item.title}</h3>
-//             <p className="text-green-600 font-semibold">{item.price} EGP</p>
-//             <button
-//               onClick={() => handleRemove(item._id)}
-//               disabled={loadingId === item._id}
-//               className="mt-auto text-sm text-red-500 border border-red-300 rounded-lg py-1.5 hover:bg-red-50 transition-colors disabled:opacity-50">
-//               {loadingId === item._id ? "Removing..." : "Remove"}
-//             </button>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
 "use client";
 
 import { useState, useEffect } from "react";
@@ -119,14 +39,30 @@ export default function WishlistClient() {
     });
   }, [session]);
 
-  async function handleRemove(productId: string) {
+//   async function handleRemove(productId: string) {
+//   const token = (session as any)?.accessToken;
+//   if (!token) return;
+//   setLoadingId(productId);
+//   await removeFromWishlist(productId, token);
+//   queryClient.invalidateQueries({ queryKey: ['wishlist'] });
+//   window.dispatchEvent(new CustomEvent("wishlistUpdated"));
+//   toast.success("Removed from wishlist", { position: "top-right", duration: 2000 });
+//   setLoadingId(null);
+// }
+
+async function handleRemove(productId: string) {
   const token = (session as any)?.accessToken;
   if (!token) return;
   setLoadingId(productId);
-  await removeFromWishlist(productId, token);
-  queryClient.invalidateQueries({ queryKey: ['wishlist'] });
-  window.dispatchEvent(new CustomEvent("wishlistUpdated"));
-  toast.success("Removed from wishlist", { position: "top-right", duration: 2000 });
+  const res = await removeFromWishlist(productId, token);
+  
+  if (res.status === "success") {
+    setItems((prev) => prev.filter((p) => p._id !== productId));
+    queryClient.invalidateQueries({ queryKey: ['wishlist'] });
+    window.dispatchEvent(new CustomEvent("wishlistUpdated"));
+    toast.success("Removed from wishlist", { position: "top-right", duration: 2000 });
+  }
+  
   setLoadingId(null);
 }
 
